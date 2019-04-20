@@ -2,9 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 
-// line 30 "../../DMS_Model.ump"
-public class Administrator extends UserRole
+// line 45 "../../DMS_Persistence.ump"
+// line 32 "../../DMS_Model.ump"
+public class Administrator extends UserRole implements Serializable
 {
 
   //------------------------
@@ -28,5 +30,13 @@ public class Administrator extends UserRole
   {
     super.delete();
   }
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 48 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = -210105651472293481L ;
 
+  
 }

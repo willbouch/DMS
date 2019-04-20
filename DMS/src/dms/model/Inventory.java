@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 64 "../../DMS_Model.ump"
-public class Inventory
+// line 51 "../../DMS_Persistence.ump"
+// line 65 "../../DMS_Model.ump"
+public class Inventory implements Serializable
 {
 
   //------------------------
@@ -196,5 +198,13 @@ public class Inventory
             "firstLetter" + ":" + getFirstLetter()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "drugsPriority" + "=" + (getDrugsPriority() != null ? !getDrugsPriority().equals(this)  ? getDrugsPriority().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 54 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 5332292624658907512L ;
+
+  
 }

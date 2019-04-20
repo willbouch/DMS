@@ -1,5 +1,7 @@
 namespace dms.model;
 
+use DMS_Persistence.ump;
+
 class DMS {
 	1 -<@> * User;
 	1 -<@> * UserRole;
@@ -47,7 +49,6 @@ class Drug {
 	Integer inHandQuantity;
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
-	autounique id;
 
 	* sorted {name} -<@> 1 Inventory;
 	

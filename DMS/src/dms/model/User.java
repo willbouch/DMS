@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 11 "../../DMS_Model.ump"
-public class User
+// line 14 "../../DMS_Persistence.ump"
+// line 13 "../../DMS_Model.ump"
+public class User implements Serializable
 {
 
   //------------------------
@@ -132,6 +134,14 @@ public class User
     }
   }
 
+  // line 20 "../../DMS_Persistence.ump"
+   public static  void reinitializeUniqueUserName(List<User> users){
+    usersByUsername = new HashMap<String, User>();
+  		for (User user : users) {
+  			usersByUsername.put(user.getUsername(), user);
+  		}
+  }
+
 
   public String toString()
   {
@@ -139,5 +149,13 @@ public class User
             "username" + ":" + getUsername()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "userRole = "+(getUserRole()!=null?Integer.toHexString(System.identityHashCode(getUserRole())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 17 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 4267485601061759914L ;
+
+  
 }

@@ -2,16 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 
-// line 42 "../../DMS_Model.ump"
-public class Drug
+// line 63 "../../DMS_Persistence.ump"
+// line 44 "../../DMS_Model.ump"
+public class Drug implements Serializable
 {
-
-  //------------------------
-  // STATIC VARIABLES
-  //------------------------
-
-  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
@@ -26,9 +22,6 @@ public class Drug
   private int orderedQuantity;
   private int minQuantity;
 
-  //Autounique Attributes
-  private int id;
-
   //Drug Associations
   private Inventory inventory;
 
@@ -38,7 +31,7 @@ public class Drug
 
   public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
   {
-    // line 56 "../../DMS_Model.ump"
+    // line 57 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
     			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
     				throw new RuntimeException("Le médicament existe déjà");
@@ -52,7 +45,6 @@ public class Drug
     inHandQuantity = aInHandQuantity;
     resetOrderedQuantity();
     minQuantity = aMinQuantity;
-    id = nextId++;
     boolean didAddInventory = setInventory(aInventory);
     if (!didAddInventory)
     {
@@ -167,11 +159,6 @@ public class Drug
   {
     return minQuantity;
   }
-
-  public int getId()
-  {
-    return id;
-  }
   /* Code from template association_GetOne */
   public Inventory getInventory()
   {
@@ -211,7 +198,6 @@ public class Drug
   public String toString()
   {
     return super.toString() + "["+
-            "id" + ":" + getId()+ "," +
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
             "concentration" + ":" + getConcentration()+ "," +
@@ -220,5 +206,13 @@ public class Drug
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
             "minQuantity" + ":" + getMinQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "inventory = "+(getInventory()!=null?Integer.toHexString(System.identityHashCode(getInventory())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 66 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 939001747760934442L ;
+
+  
 }

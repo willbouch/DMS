@@ -2,11 +2,16 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 import java.util.*;
 import java.sql.Date;
 
-// line 3 "../../DMS_Model.ump"
-public class DMS
+/**
+ * the reinitialize methods need to be added
+ */
+// line 5 "../../DMS_Persistence.ump"
+// line 5 "../../DMS_Model.ump"
+public class DMS implements Serializable
 {
 
   //------------------------
@@ -583,4 +588,17 @@ public class DMS
     
   }
 
+  // line 10 "../../DMS_Persistence.ump"
+   public void reinitialize(){
+    User.reinitializeUniqueUserName(this.getUsers());
+  }
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 8 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 6181302407834705923L ;
+
+  
 }

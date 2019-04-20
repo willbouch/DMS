@@ -5,7 +5,6 @@ class DMS {
 	1 -<@> * UserRole;
 	1 -<@> * Order;
 	1 -<@> * Receipt;
-	1 -<@> * Inventory;
 }
 
 class User {
@@ -52,7 +51,9 @@ class Drug {
 }
 
 class Inventory {
-	char firstLetter;
+	String firstLetter;
+	
+	* sorted {firstLetter} <@>- 1 DMS;
 }
 
 class Receipt {

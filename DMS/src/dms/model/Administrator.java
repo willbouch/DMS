@@ -3,7 +3,7 @@
 
 package dms.model;
 
-// line 30 "../../DMS_Model.ump"
+// line 29 "../../DMS_Model.ump"
 public class Administrator extends UserRole
 {
 

@@ -3,7 +3,7 @@
 
 package dms.model;
 
-// line 22 "../../DMS_Model.ump"
+// line 21 "../../DMS_Model.ump"
 public class Cashier extends UserRole
 {
 

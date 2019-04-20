@@ -4,7 +4,7 @@
 package dms.model;
 import java.util.*;
 
-// line 54 "../../DMS_Model.ump"
+// line 53 "../../DMS_Model.ump"
 public class Inventory
 {
 
@@ -13,7 +13,7 @@ public class Inventory
   //------------------------
 
   //Inventory Attributes
-  private char firstLetter;
+  private String firstLetter;
   private Comparator<Drug> drugsPriority;
 
   //Inventory Associations
@@ -24,7 +24,7 @@ public class Inventory
   // CONSTRUCTOR
   //------------------------
 
-  public Inventory(char aFirstLetter, DMS aDMS)
+  public Inventory(String aFirstLetter, DMS aDMS)
   {
     firstLetter = aFirstLetter;
     drugsPriority = 
@@ -48,7 +48,7 @@ public class Inventory
   // INTERFACE
   //------------------------
 
-  public boolean setFirstLetter(char aFirstLetter)
+  public boolean setFirstLetter(String aFirstLetter)
   {
     boolean wasSet = false;
     firstLetter = aFirstLetter;
@@ -64,7 +64,7 @@ public class Inventory
     return wasSet;
   }
 
-  public char getFirstLetter()
+  public String getFirstLetter()
   {
     return firstLetter;
   }

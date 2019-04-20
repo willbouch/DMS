@@ -4,7 +4,7 @@
 package dms.model;
 import java.util.*;
 
-// line 11 "../../DMS_Model.ump"
+// line 10 "../../DMS_Model.ump"
 public class User
 {
 

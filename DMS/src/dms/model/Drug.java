@@ -3,7 +3,7 @@
 
 package dms.model;
 
-// line 42 "../../DMS_Model.ump"
+// line 41 "../../DMS_Model.ump"
 public class Drug
 {
 

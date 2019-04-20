@@ -4,7 +4,7 @@
 package dms.model;
 import java.util.*;
 
-// line 58 "../../DMS_Model.ump"
+// line 59 "../../DMS_Model.ump"
 public class Receipt
 {
 

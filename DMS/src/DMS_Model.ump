@@ -1,0 +1,62 @@
+namespace dms.model;
+
+class DMS {
+	1 -<@> * User;
+	1 -<@> * UserRole;
+	1 -<@> * Order;
+	1 -<@> * Receipt;
+	1 -<@> * Inventory;
+}
+
+class User {
+	unique String username;
+	
+	1 -> 0..1 UserRole;
+}
+
+class UserRole{
+	abstract;
+	String password;
+}
+
+class Cashier {
+	isA UserRole;
+}	
+
+class Pharmacist {
+	isA UserRole;
+}
+
+class Administrator {
+	isA UserRole;
+}
+
+class Order {
+	Date date;
+	
+	* -> 1 Pharmacist;
+	* -> 1 Administrator;
+	1 -> * Drug;
+}
+
+class Drug {
+	String name;
+	Double price;
+	Double concentration;
+	String unit;
+	Integer inHandQuantity;
+	defaulted Integer orderedQuantity = 0;
+	Integer minQuantity;
+	
+	* sorted {name} -<@> 1 Inventory;
+}
+
+class Inventory {
+	char firstLetter;
+}
+
+class Receipt {
+	Double totalPrice;
+	
+	1 -> * Drug;
+}

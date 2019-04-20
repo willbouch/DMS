@@ -1,0 +1,143 @@
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+
+package dms.model;
+import java.util.*;
+
+// line 11 "../../DMS_Model.ump"
+public class User
+{
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<String, User> usersByUsername = new HashMap<String, User>();
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //User Attributes
+  private String username;
+
+  //User Associations
+  private UserRole userRole;
+  private DMS dMS;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public User(String aUsername, DMS aDMS)
+  {
+    if (!setUsername(aUsername))
+    {
+      throw new RuntimeException("Cannot create due to duplicate username");
+    }
+    boolean didAddDMS = setDMS(aDMS);
+    if (!didAddDMS)
+    {
+      throw new RuntimeException("Unable to create user due to dMS");
+    }
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+
+  public boolean setUsername(String aUsername)
+  {
+    boolean wasSet = false;
+    String anOldUsername = getUsername();
+    if (hasWithUsername(aUsername)) {
+      return wasSet;
+    }
+    username = aUsername;
+    wasSet = true;
+    if (anOldUsername != null) {
+      usersByUsername.remove(anOldUsername);
+    }
+    usersByUsername.put(aUsername, this);
+    return wasSet;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+  /* Code from template attribute_GetUnique */
+  public static User getWithUsername(String aUsername)
+  {
+    return usersByUsername.get(aUsername);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithUsername(String aUsername)
+  {
+    return getWithUsername(aUsername) != null;
+  }
+  /* Code from template association_GetOne */
+  public UserRole getUserRole()
+  {
+    return userRole;
+  }
+
+  public boolean hasUserRole()
+  {
+    boolean has = userRole != null;
+    return has;
+  }
+  /* Code from template association_GetOne */
+  public DMS getDMS()
+  {
+    return dMS;
+  }
+  /* Code from template association_SetUnidirectionalOptionalOne */
+  public boolean setUserRole(UserRole aNewUserRole)
+  {
+    boolean wasSet = false;
+    userRole = aNewUserRole;
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setDMS(DMS aDMS)
+  {
+    boolean wasSet = false;
+    if (aDMS == null)
+    {
+      return wasSet;
+    }
+
+    DMS existingDMS = dMS;
+    dMS = aDMS;
+    if (existingDMS != null && !existingDMS.equals(aDMS))
+    {
+      existingDMS.removeUser(this);
+    }
+    dMS.addUser(this);
+    wasSet = true;
+    return wasSet;
+  }
+
+  public void delete()
+  {
+    usersByUsername.remove(getUsername());
+    userRole = null;
+    DMS existingDMS = dMS;
+    dMS = null;
+    if (existingDMS != null)
+    {
+      existingDMS.delete();
+    }
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "username" + ":" + getUsername()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "userRole = "+(getUserRole()!=null?Integer.toHexString(System.identityHashCode(getUserRole())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
+  }
+}

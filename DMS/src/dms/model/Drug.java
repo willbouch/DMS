@@ -1,0 +1,201 @@
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
+
+package dms.model;
+
+// line 42 "../../DMS_Model.ump"
+public class Drug
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //Drug Attributes
+  private String name;
+  private double price;
+  private double concentration;
+  private String unit;
+  private int inHandQuantity;
+  private int orderedQuantity;
+  private int minQuantity;
+
+  //Drug Associations
+  private Inventory inventory;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
+  {
+    name = aName;
+    price = aPrice;
+    concentration = aConcentration;
+    unit = aUnit;
+    inHandQuantity = aInHandQuantity;
+    resetOrderedQuantity();
+    minQuantity = aMinQuantity;
+    boolean didAddInventory = setInventory(aInventory);
+    if (!didAddInventory)
+    {
+      throw new RuntimeException("Unable to create drug due to inventory");
+    }
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setPrice(double aPrice)
+  {
+    boolean wasSet = false;
+    price = aPrice;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setConcentration(double aConcentration)
+  {
+    boolean wasSet = false;
+    concentration = aConcentration;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setUnit(String aUnit)
+  {
+    boolean wasSet = false;
+    unit = aUnit;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setInHandQuantity(int aInHandQuantity)
+  {
+    boolean wasSet = false;
+    inHandQuantity = aInHandQuantity;
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template attribute_SetDefaulted */
+  public boolean setOrderedQuantity(int aOrderedQuantity)
+  {
+    boolean wasSet = false;
+    orderedQuantity = aOrderedQuantity;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean resetOrderedQuantity()
+  {
+    boolean wasReset = false;
+    orderedQuantity = getDefaultOrderedQuantity();
+    wasReset = true;
+    return wasReset;
+  }
+
+  public boolean setMinQuantity(int aMinQuantity)
+  {
+    boolean wasSet = false;
+    minQuantity = aMinQuantity;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public double getPrice()
+  {
+    return price;
+  }
+
+  public double getConcentration()
+  {
+    return concentration;
+  }
+
+  public String getUnit()
+  {
+    return unit;
+  }
+
+  public int getInHandQuantity()
+  {
+    return inHandQuantity;
+  }
+
+  public int getOrderedQuantity()
+  {
+    return orderedQuantity;
+  }
+  /* Code from template attribute_GetDefaulted */
+  public int getDefaultOrderedQuantity()
+  {
+    return 0;
+  }
+
+  public int getMinQuantity()
+  {
+    return minQuantity;
+  }
+  /* Code from template association_GetOne */
+  public Inventory getInventory()
+  {
+    return inventory;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setInventory(Inventory aInventory)
+  {
+    boolean wasSet = false;
+    if (aInventory == null)
+    {
+      return wasSet;
+    }
+
+    Inventory existingInventory = inventory;
+    inventory = aInventory;
+    if (existingInventory != null && !existingInventory.equals(aInventory))
+    {
+      existingInventory.removeDrug(this);
+    }
+    inventory.addDrug(this);
+    wasSet = true;
+    return wasSet;
+  }
+
+  public void delete()
+  {
+    Inventory placeholderInventory = inventory;
+    this.inventory = null;
+    if(placeholderInventory != null)
+    {
+      placeholderInventory.removeDrug(this);
+    }
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "," +
+            "price" + ":" + getPrice()+ "," +
+            "concentration" + ":" + getConcentration()+ "," +
+            "unit" + ":" + getUnit()+ "," +
+            "inHandQuantity" + ":" + getInHandQuantity()+ "," +
+            "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
+            "minQuantity" + ":" + getMinQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "inventory = "+(getInventory()!=null?Integer.toHexString(System.identityHashCode(getInventory())):"null");
+  }
+}

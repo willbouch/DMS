@@ -47,6 +47,7 @@ class Drug {
 	Integer inHandQuantity;
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
+	autounique id;
 
 	* sorted {name} -<@> 1 Inventory;
 	

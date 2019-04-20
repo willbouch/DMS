@@ -4,7 +4,7 @@
 package dms.model;
 import java.util.*;
 
-// line 63 "../../DMS_Model.ump"
+// line 64 "../../DMS_Model.ump"
 public class Inventory
 {
 

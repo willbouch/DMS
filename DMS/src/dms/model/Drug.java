@@ -3,7 +3,7 @@
 
 package dms.model;
 
-// line 41 "../../DMS_Model.ump"
+// line 42 "../../DMS_Model.ump"
 public class Drug
 {
 
@@ -29,6 +29,13 @@ public class Drug
 
   public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
   {
+    // line 55 "../../DMS_Model.ump"
+    for(Drug drug : aInventory.getDrugs()) {
+    			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
+    				throw new RuntimeException("Le médicament existe déjà");
+    			}
+    		}
+    // END OF UMPLE BEFORE INJECTION
     name = aName;
     price = aPrice;
     concentration = aConcentration;

@@ -5,6 +5,7 @@ class DMS {
 	1 -<@> * UserRole;
 	1 -<@> * Order;
 	1 -<@> * Receipt;
+	1 -<@> * Inventory;
 }
 
 class User {
@@ -46,14 +47,21 @@ class Drug {
 	Integer inHandQuantity;
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
-	
+
 	* sorted {name} -<@> 1 Inventory;
+	
+	before constructor {
+		
+		for(Drug drug : aInventory.getDrugs()) {
+			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
+				throw new RuntimeException("Le médicament existe déjà");
+			}
+		}
+	}
 }
 
 class Inventory {
-	String firstLetter;
-	
-	* sorted {firstLetter} <@>- 1 DMS;
+	char firstLetter;
 }
 
 class Receipt {

@@ -13,9 +13,6 @@ public class DMS
   // MEMBER VARIABLES
   //------------------------
 
-  //DMS Attributes
-  private Comparator<Inventory> inventoriesPriority;
-
   //DMS Associations
   private List<User> users;
   private List<UserRole> userRoles;
@@ -29,15 +26,6 @@ public class DMS
 
   public DMS()
   {
-    inventoriesPriority = 
-      new Comparator<Inventory>(){
-        @Override
-        public int compare(Inventory arg0, Inventory arg1)
-        {
-          return ((String)arg0.getFirstLetter()).compareTo(
-                 ((String)arg1.getFirstLetter()));
-        }
-      };
     users = new ArrayList<User>();
     userRoles = new ArrayList<UserRole>();
     orders = new ArrayList<Order>();
@@ -48,19 +36,6 @@ public class DMS
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setInventoriesPriority(Comparator<Inventory> aInventoriesPriority)
-  {
-    boolean wasSet = false;
-    inventoriesPriority = aInventoriesPriority;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public Comparator<Inventory> getInventoriesPriority()
-  {
-    return inventoriesPriority;
-  }
   /* Code from template association_GetMany */
   public User getUser(int index)
   {
@@ -502,7 +477,7 @@ public class DMS
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Inventory addInventory(String aFirstLetter)
+  public Inventory addInventory(char aFirstLetter)
   {
     return new Inventory(aFirstLetter, this);
   }
@@ -522,9 +497,6 @@ public class DMS
       inventories.add(aInventory);
     }
     wasAdded = true;
-    if(wasAdded)
-        Collections.sort(inventories, inventoriesPriority);
-    
     return wasAdded;
   }
 
@@ -539,7 +511,38 @@ public class DMS
     }
     return wasRemoved;
   }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addInventoryAt(Inventory aInventory, int index)
+  {  
+    boolean wasAdded = false;
+    if(addInventory(aInventory))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfInventories()) { index = numberOfInventories() - 1; }
+      inventories.remove(aInventory);
+      inventories.add(index, aInventory);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
 
+  public boolean addOrMoveInventoryAt(Inventory aInventory, int index)
+  {
+    boolean wasAdded = false;
+    if(inventories.contains(aInventory))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfInventories()) { index = numberOfInventories() - 1; }
+      inventories.remove(aInventory);
+      inventories.add(index, aInventory);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addInventoryAt(aInventory, index);
+    }
+    return wasAdded;
+  }
 
   public void delete()
   {
@@ -580,10 +583,4 @@ public class DMS
     
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "inventoriesPriority" + "=" + (getInventoriesPriority() != null ? !getInventoriesPriority().equals(this)  ? getInventoriesPriority().toString().replaceAll("  ","    ") : "this" : "null");
-  }
 }

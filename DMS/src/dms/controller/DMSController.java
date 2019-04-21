@@ -133,4 +133,29 @@ public class DMSController {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
+
+	public static void login(String username, String password) throws InvalidInputException {
+		if(username == null || username.equals("")) {
+			throw new InvalidInputException("Le nom d'utilisateur ne peut être vide");
+		}
+		if(password == null || password.equals("")) {
+			throw new InvalidInputException("Le mot de passe ne peut être vide.");
+		}
+		if (DMSApplication.getCurrentUserRole() != null) {
+			throw new InvalidInputException("Cannot login a user while a user is already logged in.");
+		}
+
+		User user = User.getWithUsername(username);
+
+		if (user == null) {
+			throw new InvalidInputException("The username and password do not match.");
+		}
+
+		if(user.getUsername().equals(username) && user.getUserRole().getPassword().equals(password)) {
+			DMSApplication.setCurrentUserRole(user.getUserRole());
+		}
+		else {
+			throw new InvalidInputException("The username and password do not match.");
+		}
+	}
 }

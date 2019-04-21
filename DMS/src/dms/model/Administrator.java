@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 45 "../../DMS_Persistence.ump"
-// line 53 "../../DMS_Model.ump"
+// line 48 "../../DMS_Model.ump"
 public class Administrator extends UserRole implements Serializable
 {
 

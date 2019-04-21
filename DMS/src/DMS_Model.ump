@@ -35,11 +35,6 @@ class User {
 class UserRole{
 	abstract;
 	String password;
-	
-	before constructor {
-   		if(aPassword == null || aPassword.equals(""))
-     		throw new RuntimeException("Le mot de passe ne peut être vide.");
-   		}
 }
 
 class Cashier {

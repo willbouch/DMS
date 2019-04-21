@@ -25,10 +25,6 @@ public abstract class UserRole implements Serializable
 
   public UserRole(String aPassword, DMS aDMS)
   {
-    // line 40 "../../DMS_Model.ump"
-    if(aPassword == null || aPassword.equals(""))
-         		throw new RuntimeException("Le mot de passe ne peut être vide.");
-    // END OF UMPLE BEFORE INJECTION
     password = aPassword;
     boolean didAddDMS = setDMS(aDMS);
     if (!didAddDMS)

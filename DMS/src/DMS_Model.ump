@@ -19,16 +19,6 @@ class DMS {
 		
 		return null;
 	}
-	
-	public User findUser(String name) {
-		for(User user : this.getUsers()) {
-			if(user.getUsername().equals(name)) {
-				return user;
-			}
-		}
-		
-		return null;
-	}
 }
 
 class User {

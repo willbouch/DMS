@@ -1,10 +1,13 @@
 package dms.controller;
 
 import dms.application.DMSApplication;
+import dms.model.Administrator;
 import dms.model.Cashier;
 import dms.model.DMS;
 import dms.model.Drug;
 import dms.model.Inventory;
+import dms.model.Pharmacist;
+import dms.model.User;
 import dms.model.UserRole;
 import dms.persistence.DMSPersistence;
 
@@ -93,4 +96,41 @@ public class DMSController {
 		}
 	}
 
+	public static void register(String username, String password, String role) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+		if(password == null || password.equals("")) {
+			throw new InvalidInputException("Le mot de passe ne peut être vide.");
+		}
+		
+		UserRole userRole;
+		switch(role) {
+			case "Pharmacist":
+				userRole = new Pharmacist(password, dms);
+				break;
+			case "Cashier":
+				userRole = new Cashier(password, dms);
+				break;
+			case "Administrator":
+				userRole = new Administrator(password, dms);
+				break;
+			default:
+				throw new InvalidInputException("Le statut n'est pas valide.");
+		}
+		
+		try {
+			dms.addUser(username, userRole);
+			DMSPersistence.save(dms);
+		} catch (RuntimeException e) {
+			if (e.getMessage().equals("Cannot create due to duplicate username")) {
+				throw new InvalidInputException("Un compte est déjà associé à ce nom d'utilisateur.");
+			}
+			userRole.delete();
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
 }

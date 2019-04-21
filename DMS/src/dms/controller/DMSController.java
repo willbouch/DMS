@@ -142,24 +142,46 @@ public class DMSController {
 			throw new InvalidInputException("Le mot de passe ne peut être vide.");
 		}
 		if (DMSApplication.getCurrentUserRole() != null) {
-			throw new InvalidInputException("Cannot login a user while a user is already logged in.");
+			throw new InvalidInputException("Un utilisateur est déjà connecté.");
 		}
 
 		User user = User.getWithUsername(username);
 
 		if (user == null) {
-			throw new InvalidInputException("The username and password do not match.");
+			throw new InvalidInputException("Le nom d'utilisateur et le mot de passe ne correspondent pas.");
 		}
 
 		if(user.getUsername().equals(username) && user.getUserRole().getPassword().equals(password)) {
 			DMSApplication.setCurrentUserRole(user.getUserRole());
 		}
 		else {
-			throw new InvalidInputException("The username and password do not match.");
+			throw new InvalidInputException("Le nom d'utilisateur et le mot de passe ne correspondent pas.");
 		}
 	}
 
 	public static void logout() {
 		DMSApplication.setCurrentUserRole(null);
+	}
+
+	public static void deleteUser(String username) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+
+		User user = User.getWithUsername(username);
+		if(user == null) {
+			throw new InvalidInputException("L'utilisateur n'existe pas.");
+		}
+		
+		try {
+			user.delete();
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
 	}
 }

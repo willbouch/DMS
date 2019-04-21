@@ -10,6 +10,12 @@ public class Drug implements Serializable
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
@@ -22,6 +28,9 @@ public class Drug implements Serializable
   private int orderedQuantity;
   private int minQuantity;
 
+  //Autounique Attributes
+  private int id;
+
   //Drug Associations
   private Inventory inventory;
 
@@ -31,7 +40,7 @@ public class Drug implements Serializable
 
   public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
   {
-    // line 68 "../../DMS_Model.ump"
+    // line 69 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
     			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
     				throw new RuntimeException("Le médicament existe déjà");
@@ -45,6 +54,7 @@ public class Drug implements Serializable
     inHandQuantity = aInHandQuantity;
     resetOrderedQuantity();
     minQuantity = aMinQuantity;
+    id = nextId++;
     boolean didAddInventory = setInventory(aInventory);
     if (!didAddInventory)
     {
@@ -159,6 +169,11 @@ public class Drug implements Serializable
   {
     return minQuantity;
   }
+
+  public int getId()
+  {
+    return id;
+  }
   /* Code from template association_GetOne */
   public Inventory getInventory()
   {
@@ -198,6 +213,7 @@ public class Drug implements Serializable
   public String toString()
   {
     return super.toString() + "["+
+            "id" + ":" + getId()+ "," +
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
             "concentration" + ":" + getConcentration()+ "," +

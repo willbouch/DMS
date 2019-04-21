@@ -60,6 +60,7 @@ class Drug {
 	Integer inHandQuantity;
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
+	autounique id;
 
 	* sorted {name} -<@> 1 Inventory;
 	
@@ -75,6 +76,17 @@ class Drug {
 
 class Inventory {
 	char firstLetter;
+	
+	public Drug findDrug(int id) {
+		List<Drug> drugs = this.getDrugs();
+		for(Drug drug : drugs) {
+			if(drug.getId() == id) {
+				return drug;
+			}
+		}
+		
+		return null;
+	}
 }
 
 class Receipt {

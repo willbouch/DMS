@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 51 "../../DMS_Persistence.ump"
-// line 76 "../../DMS_Model.ump"
+// line 77 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 
@@ -189,6 +189,18 @@ public class Inventory implements Serializable
       drugs.remove(aDrug);
     }
     
+  }
+
+  // line 81 "../../DMS_Model.ump"
+   public Drug findDrug(int id){
+    List<Drug> drugs = this.getDrugs();
+		for(Drug drug : drugs) {
+			if(drug.getId() == id) {
+				return drug;
+			}
+		}
+		
+		return null;
   }
 
 

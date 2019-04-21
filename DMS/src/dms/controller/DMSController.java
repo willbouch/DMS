@@ -274,4 +274,14 @@ public class DMSController {
 		
 		return toInventory;
 	}
+
+	public static TODrug getSelectedDrug(TOInventory toInventory, int id) throws InvalidInputException {		
+		for(TODrug toDrug : toInventory.getTODrugs()) {
+			if(toDrug.getId() == id) {
+				return toDrug;
+			}
+		}
+		//Should never reach this return statement
+		return null;
+	}
 }

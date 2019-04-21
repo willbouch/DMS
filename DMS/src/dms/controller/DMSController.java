@@ -65,4 +65,32 @@ public class DMSController {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
+
+	public static void deleteDrug(String name, int id) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+		
+		Inventory inventory = dms.findInventory(name);
+		if(inventory == null) {
+			throw new InvalidInputException("L'inventaire n'existe pas.");
+		}
+		
+		Drug drug = inventory.findDrug(id);
+		if(drug == null) {
+			throw new InvalidInputException("Le médicament n'existe pas.");
+		}
+		
+		try {
+			drug.delete();
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+
 }

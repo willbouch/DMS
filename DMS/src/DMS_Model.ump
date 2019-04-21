@@ -73,8 +73,38 @@ class Drug {
 		
 		for(Drug drug : aInventory.getDrugs()) {
 			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
-				throw new RuntimeException("Le médicament existe déjà");
+				throw new RuntimeException("Le médicament existe déjà.");
 			}
+		}
+	}
+	
+	before constructor , setPrice {
+		if(aPrice < 0) {
+			throw new RuntimeException("Le prix ne peut être négatif.");
+		}
+	}
+	
+	before constructor, setInHandQuantity {
+		if(aInHandQuantity < 0) {
+			throw new RuntimeException("La quantité en main ne peut être négative.");
+		}
+	}
+	
+	before setOrderedQuantity {
+		if(aOrderedQuantity < 0) {
+			throw new RuntimeException("La quantité commandée ne peut être négative.");
+		}
+	}
+	
+	before constructor, setMinQuantity {
+		if(aMinQuantity < 0) {
+			throw new RuntimeException("La quantité minimale ne peut être négative.");
+		}
+	}
+	
+	before constructor, setConcentration {
+		if(aConcentration < 0) {
+			throw new RuntimeException("La concentration ne peut être négative.");
 		}
 	}
 }

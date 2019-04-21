@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 57 "../../DMS_Persistence.ump"
-// line 97 "../../DMS_Model.ump"
+// line 127 "../../DMS_Model.ump"
 public class Receipt implements Serializable
 {
 

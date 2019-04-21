@@ -27,14 +27,28 @@ class User {
 	1 -> 1 UserRole;
 	
 	before constructor {
-   		if(aUsername == null || aUsername.equals(""))
+   		if(aUsername == null || aUsername.equals("")) {
      		throw new RuntimeException("Le nom d'utilisateur ne peut être vide.");
    		}
+   	}
+   	
+   	before constructor, setUsername {
+   		if(aUsername.length() < 8) {
+     		throw new RuntimeException("Le nom d'utilisateur doit comprendre au moins 8 charactères.");
+   		}
+   	}
+   		
 }
 
 class UserRole{
 	abstract;
 	String password;
+	
+	before constructor, setPassword {
+   		if(aPassword.length() < 8) {
+     		throw new RuntimeException("Le mot de passe doit comprendre au moins 8 charactères.");
+   		}
+   	}
 }
 
 class Cashier {
@@ -110,7 +124,14 @@ class Drug {
 }
 
 class Inventory {
-	char firstLetter;
+	immutable char firstLetter;
+	
+	before constructor {
+		if(aFirstLetter < 'A' || aFirstLetter > 'Z') {
+			throw new RuntimeException("La première lettre de l'inventaire doit être entre A et Z.");			
+		}	
+	}
+	
 	
 	public Drug findDrug(int id) {
 		List<Drug> drugs = this.getDrugs();

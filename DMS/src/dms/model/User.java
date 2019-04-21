@@ -34,8 +34,14 @@ public class User implements Serializable
   public User(String aUsername, UserRole aUserRole, DMS aDMS)
   {
     // line 30 "../../DMS_Model.ump"
-    if(aUsername == null || aUsername.equals(""))
+    if(aUsername == null || aUsername.equals("")) {
          		throw new RuntimeException("Le nom d'utilisateur ne peut être vide.");
+       		}
+    // END OF UMPLE BEFORE INJECTION
+    // line 36 "../../DMS_Model.ump"
+    if(aUsername.length() < 8) {
+         		throw new RuntimeException("Le nom d'utilisateur doit comprendre au moins 8 charactères.");
+       		}
     // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
@@ -59,6 +65,11 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
+    // line 36 "../../DMS_Model.ump"
+    if(aUsername.length() < 8) {
+         		throw new RuntimeException("Le nom d'utilisateur doit comprendre au moins 8 charactères.");
+       		}
+    // END OF UMPLE BEFORE INJECTION
     String anOldUsername = getUsername();
     if (hasWithUsername(aUsername)) {
       return wasSet;

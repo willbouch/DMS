@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.*;
 
 // line 69 "../../DMS_Persistence.ump"
-// line 52 "../../DMS_Model.ump"
+// line 66 "../../DMS_Model.ump"
 public class Order implements Serializable
 {
 

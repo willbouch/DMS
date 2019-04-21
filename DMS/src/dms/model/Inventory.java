@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 51 "../../DMS_Persistence.ump"
-// line 112 "../../DMS_Model.ump"
+// line 126 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 
@@ -28,6 +28,11 @@ public class Inventory implements Serializable
 
   public Inventory(char aFirstLetter, DMS aDMS)
   {
+    // line 130 "../../DMS_Model.ump"
+    if(aFirstLetter < 'A' || aFirstLetter > 'Z') {
+    			throw new RuntimeException("La première lettre de l'inventaire doit être entre A et Z.");			
+    		}
+    // END OF UMPLE BEFORE INJECTION
     firstLetter = aFirstLetter;
     drugsPriority = 
       new Comparator<Drug>(){
@@ -49,14 +54,6 @@ public class Inventory implements Serializable
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setFirstLetter(char aFirstLetter)
-  {
-    boolean wasSet = false;
-    firstLetter = aFirstLetter;
-    wasSet = true;
-    return wasSet;
-  }
 
   public boolean setDrugsPriority(Comparator<Drug> aDrugsPriority)
   {
@@ -191,7 +188,7 @@ public class Inventory implements Serializable
     
   }
 
-  // line 116 "../../DMS_Model.ump"
+  // line 137 "../../DMS_Model.ump"
    public Drug findDrug(int id){
     List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {

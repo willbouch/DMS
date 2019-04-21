@@ -184,4 +184,66 @@ public class DMSController {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
+	
+	public static void changePassword(String username, String newPassword) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+		
+		User user = User.getWithUsername(username);
+		if(user == null) {
+			throw new InvalidInputException("L'utilisateur n'existe pas.");
+		}
+		
+		try {
+			user.getUserRole().setPassword(newPassword);
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+	
+	public static void addInventory(char firstLetter) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+		
+		try {
+			dms.addInventory(firstLetter);
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+	
+	public static void deleteInventory(String firstLetter) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
+			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
+		}
+		
+		Inventory inventory = dms.findInventory(firstLetter);
+		if(inventory == null) {
+			throw new InvalidInputException("L'inventaire n'existe pas.");
+		}
+		
+		try {
+			inventory.delete();
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+
 }

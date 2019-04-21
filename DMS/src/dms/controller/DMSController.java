@@ -158,4 +158,8 @@ public class DMSController {
 			throw new InvalidInputException("The username and password do not match.");
 		}
 	}
+
+	public static void logout() {
+		DMSApplication.setCurrentUserRole(null);
+	}
 }

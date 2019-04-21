@@ -31,11 +31,15 @@ public class User implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aUsername, DMS aDMS)
+  public User(String aUsername, UserRole aUserRole, DMS aDMS)
   {
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
+    }
+    if (!setUserRole(aUserRole))
+    {
+      throw new RuntimeException("Unable to create User due to aUserRole");
     }
     boolean didAddDMS = setDMS(aDMS);
     if (!didAddDMS)
@@ -83,23 +87,20 @@ public class User implements Serializable
   {
     return userRole;
   }
-
-  public boolean hasUserRole()
-  {
-    boolean has = userRole != null;
-    return has;
-  }
   /* Code from template association_GetOne */
   public DMS getDMS()
   {
     return dMS;
   }
-  /* Code from template association_SetUnidirectionalOptionalOne */
+  /* Code from template association_SetUnidirectionalOne */
   public boolean setUserRole(UserRole aNewUserRole)
   {
     boolean wasSet = false;
-    userRole = aNewUserRole;
-    wasSet = true;
+    if (aNewUserRole != null)
+    {
+      userRole = aNewUserRole;
+      wasSet = true;
+    }
     return wasSet;
   }
   /* Code from template association_SetOneToMany */

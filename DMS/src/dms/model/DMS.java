@@ -197,9 +197,9 @@ public class DMS implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public User addUser(String aUsername)
+  public User addUser(String aUsername, UserRole aUserRole)
   {
-    return new User(aUsername, this);
+    return new User(aUsername, aUserRole, this);
   }
 
   public boolean addUser(User aUser)

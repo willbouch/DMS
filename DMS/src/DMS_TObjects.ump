@@ -1,0 +1,16 @@
+namespace dms.controller;
+
+class TOInventory {
+	1 -- * TODrug;
+}
+
+class TODrug {
+	String name;
+	Double price;
+	Double concentration;
+	String unit;
+	Integer inHandQuantity;
+	Integer orderedQuantity;
+	Integer minQuantity;
+	Integer id;
+}

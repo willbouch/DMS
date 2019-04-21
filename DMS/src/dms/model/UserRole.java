@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 27 "../../DMS_Persistence.ump"
-// line 43 "../../DMS_Model.ump"
+// line 53 "../../DMS_Model.ump"
 public abstract class UserRole implements Serializable
 {
 
@@ -25,7 +25,7 @@ public abstract class UserRole implements Serializable
 
   public UserRole(String aPassword, DMS aDMS)
   {
-    // line 48 "../../DMS_Model.ump"
+    // line 58 "../../DMS_Model.ump"
     if(aPassword.length() < 8) {
          		throw new RuntimeException("Le mot de passe doit comprendre au moins 8 charactères.");
        		}
@@ -45,7 +45,7 @@ public abstract class UserRole implements Serializable
   public boolean setPassword(String aPassword)
   {
     boolean wasSet = false;
-    // line 48 "../../DMS_Model.ump"
+    // line 58 "../../DMS_Model.ump"
     if(aPassword.length() < 8) {
          		throw new RuntimeException("Le mot de passe doit comprendre au moins 8 charactères.");
        		}

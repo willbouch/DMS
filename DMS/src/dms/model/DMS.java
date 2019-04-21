@@ -604,6 +604,17 @@ public class DMS implements Serializable
 		
 		return null;
   }
+
+  // line 24 "../../DMS_Model.ump"
+   public User findUser(String name){
+    for(User user : this.getUsers()) {
+			if(user.getUsername().equals(name)) {
+				return user;
+			}
+		}
+		
+		return null;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS

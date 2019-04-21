@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 27 "../../DMS_Persistence.ump"
-// line 19 "../../DMS_Model.ump"
+// line 30 "../../DMS_Model.ump"
 public abstract class UserRole implements Serializable
 {
 

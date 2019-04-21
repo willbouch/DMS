@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 14 "../../DMS_Persistence.ump"
-// line 13 "../../DMS_Model.ump"
+// line 24 "../../DMS_Model.ump"
 public class User implements Serializable
 {
 

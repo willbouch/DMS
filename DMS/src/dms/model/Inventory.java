@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 51 "../../DMS_Persistence.ump"
-// line 65 "../../DMS_Model.ump"
+// line 76 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 

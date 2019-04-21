@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 63 "../../DMS_Persistence.ump"
-// line 44 "../../DMS_Model.ump"
+// line 55 "../../DMS_Model.ump"
 public class Drug implements Serializable
 {
 
@@ -31,7 +31,7 @@ public class Drug implements Serializable
 
   public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
   {
-    // line 57 "../../DMS_Model.ump"
+    // line 68 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
     			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
     				throw new RuntimeException("Le médicament existe déjà");

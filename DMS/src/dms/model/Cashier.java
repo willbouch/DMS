@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 33 "../../DMS_Persistence.ump"
-// line 24 "../../DMS_Model.ump"
+// line 35 "../../DMS_Model.ump"
 public class Cashier extends UserRole implements Serializable
 {
 

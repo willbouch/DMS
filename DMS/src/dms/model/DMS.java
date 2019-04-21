@@ -592,6 +592,18 @@ public class DMS implements Serializable
    public void reinitialize(){
     User.reinitializeUniqueUserName(this.getUsers());
   }
+
+  // line 13 "../../DMS_Model.ump"
+   public Inventory findInventory(String name){
+    char firstLetter = name.charAt(0);
+		for(Inventory inv : this.getInventories()) {
+			if(firstLetter == inv.getFirstLetter()) {
+				return inv;
+			}
+		}
+		
+		return null;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS

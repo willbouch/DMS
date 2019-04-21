@@ -8,6 +8,17 @@ class DMS {
 	1 -<@> * Order;
 	1 -<@> * Receipt;
 	1 -<@> * Inventory;
+	
+	public Inventory findInventory(String name) {
+		char firstLetter = name.charAt(0);
+		for(Inventory inv : this.getInventories()) {
+			if(firstLetter == inv.getFirstLetter()) {
+				return inv;
+			}
+		}
+		
+		return null;
+	}
 }
 
 class User {

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 14 "../../DMS_Persistence.ump"
-// line 24 "../../DMS_Model.ump"
+// line 23 "../../DMS_Model.ump"
 public class User implements Serializable
 {
 
@@ -33,12 +33,12 @@ public class User implements Serializable
 
   public User(String aUsername, UserRole aUserRole, DMS aDMS)
   {
-    // line 30 "../../DMS_Model.ump"
+    // line 29 "../../DMS_Model.ump"
     if(aUsername == null || aUsername.equals("")) {
          		throw new RuntimeException("Le nom d'utilisateur ne peut être vide.");
        		}
     // END OF UMPLE BEFORE INJECTION
-    // line 36 "../../DMS_Model.ump"
+    // line 35 "../../DMS_Model.ump"
     if(aUsername.length() < 8) {
          		throw new RuntimeException("Le nom d'utilisateur doit comprendre au moins 8 charactères.");
        		}
@@ -65,7 +65,7 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    // line 36 "../../DMS_Model.ump"
+    // line 35 "../../DMS_Model.ump"
     if(aUsername.length() < 8) {
          		throw new RuntimeException("Le nom d'utilisateur doit comprendre au moins 8 charactères.");
        		}

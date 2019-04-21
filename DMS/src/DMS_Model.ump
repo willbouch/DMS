@@ -9,8 +9,7 @@ class DMS {
 	1 -<@> * Receipt;
 	1 -<@> * Inventory;
 	
-	public Inventory findInventory(String name) {
-		char firstLetter = name.charAt(0);
+	public Inventory findInventory(char firstLetter) {
 		for(Inventory inv : this.getInventories()) {
 			if(firstLetter == inv.getFirstLetter()) {
 				return inv;

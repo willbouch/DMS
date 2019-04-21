@@ -12,6 +12,8 @@ import dms.model.UserRole;
 import dms.persistence.DMSPersistence;
 
 public class DMSController {
+	
+	//Modifier Methods
 
 	public static void addDrug(String name, double price, double concentration, String unit, int inHandQuantity, int minQuantity) throws InvalidInputException{
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
@@ -24,7 +26,7 @@ public class DMSController {
 		//Change the "structure" of the name
 		name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
 		
-		Inventory inventory = dms.findInventory(name);
+		Inventory inventory = dms.findInventory(name.charAt(0));
 		if(inventory == null) {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
@@ -48,7 +50,7 @@ public class DMSController {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
 		
-		Inventory inventory = dms.findInventory(name);
+		Inventory inventory = dms.findInventory(name.charAt(0));
 		if(inventory == null) {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
@@ -77,7 +79,7 @@ public class DMSController {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
 		
-		Inventory inventory = dms.findInventory(name);
+		Inventory inventory = dms.findInventory(name.charAt(0));
 		if(inventory == null) {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
@@ -224,7 +226,7 @@ public class DMSController {
 		}
 	}
 	
-	public static void deleteInventory(String firstLetter) throws InvalidInputException {
+	public static void deleteInventory(char firstLetter) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
@@ -246,4 +248,30 @@ public class DMSController {
 		}
 	}
 
+	
+	//Query Methods
+	public static TOInventory getInventoryWithFirstLetter(char firstLetter) throws InvalidInputException {
+		DMS dms = DMSApplication.getDMS();
+		
+		if(firstLetter < 'A' || firstLetter > 'Z') {
+			throw new InvalidInputException("L'inventaire n'existe pas.");
+		}
+		
+		Inventory inventory = dms.findInventory(firstLetter);
+		TOInventory toInventory = new TOInventory();
+		
+		for(Drug drug : inventory.getDrugs()) {
+			new TODrug(drug.getName(),
+					drug.getPrice(),
+					drug.getConcentration(),
+					drug.getUnit(),
+					drug.getInHandQuantity(),
+					drug.getOrderedQuantity(),
+					drug.getMinQuantity(),
+					drug.getId(),
+					toInventory);
+		}
+		
+		return toInventory;
+	}
 }

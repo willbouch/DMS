@@ -594,9 +594,8 @@ public class DMS implements Serializable
   }
 
   // line 13 "../../DMS_Model.ump"
-   public Inventory findInventory(String name){
-    char firstLetter = name.charAt(0);
-		for(Inventory inv : this.getInventories()) {
+   public Inventory findInventory(char firstLetter){
+    for(Inventory inv : this.getInventories()) {
 			if(firstLetter == inv.getFirstLetter()) {
 				return inv;
 			}

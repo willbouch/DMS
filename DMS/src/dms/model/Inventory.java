@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 51 "../../DMS_Persistence.ump"
-// line 126 "../../DMS_Model.ump"
+// line 125 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 
@@ -28,7 +28,7 @@ public class Inventory implements Serializable
 
   public Inventory(char aFirstLetter, DMS aDMS)
   {
-    // line 130 "../../DMS_Model.ump"
+    // line 129 "../../DMS_Model.ump"
     if(aFirstLetter < 'A' || aFirstLetter > 'Z') {
     			throw new RuntimeException("La première lettre de l'inventaire doit être entre A et Z.");			
     		}
@@ -188,7 +188,7 @@ public class Inventory implements Serializable
     
   }
 
-  // line 137 "../../DMS_Model.ump"
+  // line 136 "../../DMS_Model.ump"
    public Drug findDrug(int id){
     List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {

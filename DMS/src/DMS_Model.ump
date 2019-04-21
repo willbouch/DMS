@@ -25,11 +25,21 @@ class User {
 	unique String username;
 	
 	1 -> 1 UserRole;
+	
+	before constructor {
+   		if(aUsername == null || aUsername.equals(""))
+     		throw new RuntimeException("Le nom d'utilisateur ne peut être vide.");
+   		}
 }
 
 class UserRole{
 	abstract;
 	String password;
+	
+	before constructor {
+   		if(aPassword == null || aPassword.equals(""))
+     		throw new RuntimeException("Le mot de passe ne peut être vide.");
+   		}
 }
 
 class Cashier {

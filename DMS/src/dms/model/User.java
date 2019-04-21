@@ -33,6 +33,10 @@ public class User implements Serializable
 
   public User(String aUsername, UserRole aUserRole, DMS aDMS)
   {
+    // line 30 "../../DMS_Model.ump"
+    if(aUsername == null || aUsername.equals(""))
+         		throw new RuntimeException("Le nom d'utilisateur ne peut être vide.");
+    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");

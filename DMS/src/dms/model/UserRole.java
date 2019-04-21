@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 
 // line 27 "../../DMS_Persistence.ump"
-// line 30 "../../DMS_Model.ump"
+// line 35 "../../DMS_Model.ump"
 public abstract class UserRole implements Serializable
 {
 
@@ -25,6 +25,10 @@ public abstract class UserRole implements Serializable
 
   public UserRole(String aPassword, DMS aDMS)
   {
+    // line 40 "../../DMS_Model.ump"
+    if(aPassword == null || aPassword.equals(""))
+         		throw new RuntimeException("Le mot de passe ne peut être vide.");
+    // END OF UMPLE BEFORE INJECTION
     password = aPassword;
     boolean didAddDMS = setDMS(aDMS);
     if (!didAddDMS)

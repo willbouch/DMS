@@ -2,6 +2,7 @@ package dms.application;
 
 import dms.model.DMS;
 import dms.model.UserRole;
+import dms.persistence.DMSPersistence;
 import dms.view.DMSPage;
 
 public class DMSApplication {
@@ -21,10 +22,8 @@ public class DMSApplication {
 	public static DMS getDMS() {
 		if(dms == null) {
 			//We load the persistence
-			//TODO
+			dms = DMSPersistence.load();
 		}
-		
-		
 		return dms;
 	}
 	

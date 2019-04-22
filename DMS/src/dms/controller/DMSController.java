@@ -19,6 +19,10 @@ public class DMSController {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
 		if(currentUserRole instanceof Cashier) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
@@ -45,6 +49,10 @@ public class DMSController {
 	public static void updateDrug(String name, int id, int newInHandQuantity, int newMinQuantity, double newPrice) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
 		
 		if(currentUserRole instanceof Cashier) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
@@ -75,6 +83,10 @@ public class DMSController {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
 		if(currentUserRole instanceof Cashier) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
@@ -101,6 +113,10 @@ public class DMSController {
 	public static void register(String username, String password, String role) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
 		
 		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
@@ -169,6 +185,10 @@ public class DMSController {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
 		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
@@ -191,6 +211,10 @@ public class DMSController {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
 		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
@@ -212,6 +236,10 @@ public class DMSController {
 	public static void addInventory(char firstLetter) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
 		
 		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");

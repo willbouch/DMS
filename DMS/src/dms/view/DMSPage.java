@@ -16,6 +16,8 @@ public class DMSPage extends Application {
 	public final static double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public final static double HBOX_SPACING = SCREEN_WIDTH / 200;
 	public final static double VBOX_SPACING = SCREEN_HEIGHT / 100;
+	public final static double INFORMATION_WINDOW_WIDTH = SCREEN_WIDTH / 10;
+	public final static double INFORMATION_WINDOW_HEIGHT = SCREEN_HEIGHT / 6;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -45,5 +47,9 @@ public class DMSPage extends Application {
 
 	public static String getResource(String res) {
 		return ClassLoader.getSystemResource(res).toString();
+	}
+
+	public static Stage getPrimaryStage() {
+		return primaryStage;
 	}
 }

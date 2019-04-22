@@ -9,6 +9,7 @@ import dms.controller.TOInventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -22,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class InventoryPane extends BorderPane {
 	private static Label errorMessage;
@@ -40,6 +42,7 @@ public class InventoryPane extends BorderPane {
 	private static VBox motherContainer;
 	private static ImageView previousArrow;
 	private static ImageView nextArrow;
+	private static Stage informationStage;
 
 	public InventoryPane() {
 		//Initialization of every attribute
@@ -144,6 +147,18 @@ public class InventoryPane extends BorderPane {
 				letterField.setText("A");
 			}
 			refreshInventoryTable();
+		});
+		
+		informationButton.setOnAction(e -> {
+			informationStage = new Stage();
+			informationStage.setAlwaysOnTop(true);
+			informationStage.initOwner(DMSPage.getPrimaryStage());
+			informationStage.setScene(new Scene(new DrugInformationPane(new TODrug("lol", 1.0, 1.0, "ml", 15, 15, 15, 1, new TOInventory()))));
+			informationStage.setResizable(false);
+			informationStage.show();
+			informationStage.setTitle("Information");
+			informationStage.setHeight(DMSPage.INFORMATION_WINDOW_HEIGHT);
+			informationStage.setWidth(DMSPage.INFORMATION_WINDOW_WIDTH);
 		});
 	}
 

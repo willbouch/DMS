@@ -258,6 +258,9 @@ public class DMSController {
 		}
 		
 		Inventory inventory = dms.findInventory(firstLetter);
+		if(inventory == null) {
+			throw new InvalidInputException("L'inventaire n'existe pas.");
+		}
 		TOInventory toInventory = new TOInventory();
 		
 		for(Drug drug : inventory.getDrugs()) {

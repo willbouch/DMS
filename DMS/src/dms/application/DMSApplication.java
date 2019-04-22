@@ -2,6 +2,7 @@ package dms.application;
 
 import dms.model.DMS;
 import dms.model.UserRole;
+import dms.view.DMSPage;
 
 public class DMSApplication {
 	
@@ -9,7 +10,12 @@ public class DMSApplication {
 	private static UserRole currentUserRole = null;
 	
 	public static void main(String[] args) {
-		
+		new Thread() {
+            @Override
+            public void run() {
+                javafx.application.Application.launch(DMSPage.class);
+            }
+        }.start();
 	}
 	
 	public static DMS getDMS() {

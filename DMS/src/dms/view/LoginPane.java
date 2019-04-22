@@ -1,10 +1,13 @@
 package dms.view;
 
+import dms.controller.DMSController;
+import dms.controller.InvalidInputException;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,10 +40,30 @@ public class LoginPane extends BorderPane {
 		usernameBox.setAlignment(Pos.CENTER);
 		passwordBox.getChildren().addAll(passwordLabel, passwordField);
 		passwordBox.setAlignment(Pos.CENTER);
-		motherContainer.getChildren().addAll(usernameBox, passwordBox, loginButton);
+		motherContainer.getChildren().addAll(usernameBox, passwordBox, loginButton, errorMessage);
 		motherContainer.setAlignment(Pos.CENTER);
 				
-		//Setting the borderpane
+		//Setting the BorderPane
 		this.setCenter(motherContainer);	
+		
+		//Setting the Listeners
+		setListeners();
+	}
+	
+	private static void setListeners() {
+		loginButton.setOnAction(e -> {
+			try {
+				DMSController.login(usernameField.getText(), passwordField.getText());
+			}
+			catch(InvalidInputException iie) {
+				errorMessage.setText(iie.getMessage());
+			}
+		});
+		
+		passwordField.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				loginButton.fire();
+			}
+		});
 	}
 }

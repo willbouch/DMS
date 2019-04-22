@@ -1,5 +1,7 @@
 package dms.view;
 
+import java.awt.event.KeyEvent;
+
 import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
 import dms.controller.TODrug;
@@ -15,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -63,13 +66,13 @@ public class InventoryPane extends BorderPane {
 		previousArrow.setFitWidth(50);
 		nextArrow.setFitHeight(50);
 		nextArrow.setFitWidth(50);
-	    previousArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
-	    nextArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
-	    
-	    //Setting the letter TextField
-	    letterField.setAlignment(Pos.CENTER);
-	    letterField.setPrefWidth(50);
-				
+		previousArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
+		nextArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
+
+		//Setting the letter TextField
+		letterField.setAlignment(Pos.CENTER);
+		letterField.setPrefWidth(50);
+
 		//Setting the TableView
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -95,16 +98,30 @@ public class InventoryPane extends BorderPane {
 		//Setting the Listeners
 		setListeners();
 	}
-	
+
 	private static void setListeners() {
+		letterField.setOnKeyPressed(e -> {
+			if(!e.getCode().equals(KeyCode.ENTER)) {
+				char c = e.getCharacter().charAt(0);
+				letterField.setText(c+"");
+			}
+		});
+
 		letterField.setOnAction(e -> {
 			char letter = letterField.getText().charAt(0);
 			if(letter < 'A' || letter > 'Z') {
-				letterField.setText("A");
+				if(letter > 'a' && letter < 'z') {
+					letter -= (int)('a' - 'A');
+					letterField.setText(letter+"");
+				}
+				else {
+					letterField.setText("A");
+				}
 			}
+
 			refreshInventoryTable();
 		});
-		
+
 		previousArrow.setOnMouseClicked(e -> {
 			if(!letterField.getText().equals("A")) {
 				char letter = letterField.getText().charAt(0);
@@ -116,7 +133,7 @@ public class InventoryPane extends BorderPane {
 			}
 			refreshInventoryTable();
 		});
-		
+
 		nextArrow.setOnMouseClicked(e -> {
 			if(!letterField.getText().equals("Z")) {
 				char letter = letterField.getText().charAt(0);
@@ -129,7 +146,7 @@ public class InventoryPane extends BorderPane {
 			refreshInventoryTable();
 		});
 	}
-	
+
 	private static void refreshInventoryTable() {
 		inventoryTable.getItems().clear();
 		try {

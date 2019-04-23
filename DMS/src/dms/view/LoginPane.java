@@ -54,6 +54,7 @@ public class LoginPane extends BorderPane {
 		loginButton.setOnAction(e -> {
 			try {
 				DMSController.login(usernameField.getText(), passwordField.getText());
+				DMSPage.toMainScene();
 			}
 			catch(InvalidInputException iie) {
 				errorMessage.setText(iie.getMessage());

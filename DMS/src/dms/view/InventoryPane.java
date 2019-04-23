@@ -42,6 +42,7 @@ public class InventoryPane extends BorderPane {
 	private static ImageView nextArrow;
 	private static Stage informationStage;
 	private static Stage manageStage;
+	private static Stage deleteStage;
 
 	public InventoryPane() {
 		//Initialization of every attribute
@@ -64,10 +65,10 @@ public class InventoryPane extends BorderPane {
 
 		//Setting the arrows
 		previousArrow.setRotate(180);
-		previousArrow.setFitHeight(50);
-		previousArrow.setFitWidth(50);
-		nextArrow.setFitHeight(50);
-		nextArrow.setFitWidth(50);
+		previousArrow.setFitHeight(DMSPage.ARROW_SIZE);
+		previousArrow.setFitWidth(DMSPage.ARROW_SIZE);
+		nextArrow.setFitHeight(DMSPage.ARROW_SIZE);
+		nextArrow.setFitWidth(DMSPage.ARROW_SIZE);
 		previousArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
 		nextArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
 
@@ -152,7 +153,7 @@ public class InventoryPane extends BorderPane {
 			informationStage = new Stage();
 			informationStage.setAlwaysOnTop(true);
 			informationStage.initOwner(DMSPage.getPrimaryStage());
-			informationStage.setScene(new Scene(new DrugInformationPane(new TODrug("lol", 1.0, 1.0, "ml", 15, 15, 15, 1, new TOInventory()))));
+			informationStage.setScene(new Scene(new DrugInformationPane(inventoryTable.getSelectionModel().getSelectedItem())));
 			informationStage.setResizable(false);
 			informationStage.show();
 			informationStage.setTitle("Information");
@@ -164,12 +165,24 @@ public class InventoryPane extends BorderPane {
 			manageStage = new Stage();
 			manageStage.setAlwaysOnTop(true);
 			manageStage.initOwner(DMSPage.getPrimaryStage());
-			manageStage.setScene(new Scene(new DrugManagementPane(new TODrug("lol", 1.0, 1.0, "ml", 15, 15, 15, 1, new TOInventory()))));
+			manageStage.setScene(new Scene(new DrugManagementPane(inventoryTable.getSelectionModel().getSelectedItem())));
 			manageStage.setResizable(false);
 			manageStage.show();
 			manageStage.setTitle("Gérer");
 			manageStage.setHeight(DMSPage.MANAGEMENT_WINDOW_HEIGHT);
 			manageStage.setWidth(DMSPage.MANAGEMENT_WINDOW_WIDTH);
+		});
+		
+		deleteButton.setOnAction(e -> {
+			deleteStage = new Stage();
+			deleteStage.setAlwaysOnTop(true);
+			deleteStage.initOwner(DMSPage.getPrimaryStage());
+			deleteStage.setScene(new Scene(new DrugDeletionPane()));
+			deleteStage.setResizable(false);
+			deleteStage.show();
+			deleteStage.setTitle("Supprimer");
+			deleteStage.setHeight(DMSPage.DELETION_WINDOW_HEIGHT);
+			deleteStage.setWidth(DMSPage.DELETION_WINDOW_WIDTH);
 		});
 	}
 

@@ -20,7 +20,10 @@ public class DMSPage extends Application {
 	public final static double INFORMATION_WINDOW_HEIGHT = SCREEN_HEIGHT / 5;
 	public final static double MANAGEMENT_WINDOW_WIDTH = SCREEN_WIDTH / 8;
 	public final static double MANAGEMENT_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
+	public final static double DELETION_WINDOW_WIDTH = SCREEN_WIDTH / 5;
+	public final static double DELETION_WINDOW_HEIGHT = SCREEN_HEIGHT / 10;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;
+	public final static double ARROW_SIZE = 40;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -32,7 +35,7 @@ public class DMSPage extends Application {
 		primaryStage.setHeight(SCREEN_HEIGHT/2);
 		primaryStage.setWidth(SCREEN_WIDTH/2);
 		
-		toMainScene();
+		toLoginScene();
 		//primaryStage.getIcons().add(new Image("ca/mcgill/ecse223/block/view/resources/logo.jpg"));
 	}
 	

@@ -1,5 +1,7 @@
 package dms.view;
 
+import dms.controller.DMSController;
+import dms.controller.InvalidInputException;
 import dms.controller.TODrug;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class DrugManagementPane extends BorderPane {
+	private static Label errorMessage;
 	private static Label nameLabel;
 	private static Label concentrationLabel;
 	private static Label priceLabel;
@@ -28,6 +31,7 @@ public class DrugManagementPane extends BorderPane {
 	
 	public DrugManagementPane(TODrug toDrug) {
 		//Initialization of every attribute
+		errorMessage = new Label();
 		nameLabel = new Label("Nom : "+toDrug.getName());
 		concentrationLabel = new Label("Concentration : "+toDrug.getConcentration()+" "+toDrug.getUnit());
 		priceLabel = new Label("Prix : ");
@@ -57,9 +61,24 @@ public class DrugManagementPane extends BorderPane {
 		minQuantityBox.getChildren().addAll(minQuantityLabel, minQuantityField);
 		orderedQuantityBox.getChildren().addAll(orderedQuantityLabel, orderedQuantityField);
 		motherContainer.getChildren().addAll(nameLabel, concentrationLabel, priceBox,
-											 inHandQuantityBox, minQuantityBox, orderedQuantityBox, modifyButton);
+											 inHandQuantityBox, minQuantityBox, orderedQuantityBox, modifyButton, errorMessage);
 		
 		//Setting the BorderPane
 		this.setCenter(motherContainer);
+		
+		//Setting the Listeners
+		setListeners(toDrug);
+	}
+
+	private static void setListeners(TODrug toDrug) {
+		modifyButton.setOnAction(e -> {
+			try {
+				DMSController.updateDrug(toDrug.getName(), toDrug.getId(), Integer.parseInt(inHandQuantityField.getText()),
+										 Integer.parseInt(minQuantityField.getText()), Double.parseDouble(priceField.getText()));
+			}
+			catch(InvalidInputException iie) {
+				errorMessage.setText(iie.getMessage());
+			}
+		});
 	}
 }

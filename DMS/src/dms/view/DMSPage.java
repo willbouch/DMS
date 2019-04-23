@@ -19,7 +19,7 @@ public class DMSPage extends Application {
 	public final static double INFORMATION_WINDOW_WIDTH = SCREEN_WIDTH / 10;
 	public final static double INFORMATION_WINDOW_HEIGHT = SCREEN_HEIGHT / 5;
 	public final static double MANAGEMENT_WINDOW_WIDTH = SCREEN_WIDTH / 8;
-	public final static double MANAGEMENT_WINDOW_HEIGHT = SCREEN_HEIGHT / 4;
+	public final static double MANAGEMENT_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;
 	
 	@Override

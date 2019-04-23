@@ -10,6 +10,7 @@ public class DrugInformationPane extends BorderPane {
 	private static Label concentrationLabel;
 	private static Label priceLabel;
 	private static Label inHandQuantityLabel;
+	private static Label minQuantityLabel;
 	private static Label orderedQuantityLabel;
 	private static VBox motherContainer;
 	
@@ -19,12 +20,13 @@ public class DrugInformationPane extends BorderPane {
 		concentrationLabel = new Label("Concentration : "+toDrug.getConcentration()+" "+toDrug.getUnit());
 		priceLabel = new Label("Prix : "+toDrug.getPrice()+" $");
 		inHandQuantityLabel = new Label("Quantité en main : "+toDrug.getInHandQuantity());
+		minQuantityLabel = new Label("Quantité minimale : "+toDrug.getMinQuantity());
 		orderedQuantityLabel = new Label("Quantité en commande : "+toDrug.getOrderedQuantity());
 		motherContainer = new VBox(DMSPage.VBOX_SPACING);
 		
 		//Setting the containers
 		motherContainer.getChildren().addAll(nameLabel, concentrationLabel, priceLabel,
-											 inHandQuantityLabel, orderedQuantityLabel);
+											 inHandQuantityLabel, minQuantityLabel, orderedQuantityLabel);
 		
 		//Setting the BorderPane
 		this.setCenter(motherContainer);

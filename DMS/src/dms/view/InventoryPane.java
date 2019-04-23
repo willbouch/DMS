@@ -1,7 +1,5 @@
 package dms.view;
 
-import java.awt.event.KeyEvent;
-
 import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
 import dms.controller.TODrug;
@@ -43,6 +41,7 @@ public class InventoryPane extends BorderPane {
 	private static ImageView previousArrow;
 	private static ImageView nextArrow;
 	private static Stage informationStage;
+	private static Stage manageStage;
 
 	public InventoryPane() {
 		//Initialization of every attribute
@@ -74,7 +73,7 @@ public class InventoryPane extends BorderPane {
 
 		//Setting the letter TextField
 		letterField.setAlignment(Pos.CENTER);
-		letterField.setPrefWidth(50);
+		letterField.setPrefWidth(DMSPage.NUMERICAL_TEXTFIELD_WIDTH);
 
 		//Setting the TableView
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -159,6 +158,18 @@ public class InventoryPane extends BorderPane {
 			informationStage.setTitle("Information");
 			informationStage.setHeight(DMSPage.INFORMATION_WINDOW_HEIGHT);
 			informationStage.setWidth(DMSPage.INFORMATION_WINDOW_WIDTH);
+		});
+		
+		manageButton.setOnAction(e -> {
+			manageStage = new Stage();
+			manageStage.setAlwaysOnTop(true);
+			manageStage.initOwner(DMSPage.getPrimaryStage());
+			manageStage.setScene(new Scene(new DrugManagementPane(new TODrug("lol", 1.0, 1.0, "ml", 15, 15, 15, 1, new TOInventory()))));
+			manageStage.setResizable(false);
+			manageStage.show();
+			manageStage.setTitle("Gérer");
+			manageStage.setHeight(DMSPage.MANAGEMENT_WINDOW_HEIGHT);
+			manageStage.setWidth(DMSPage.MANAGEMENT_WINDOW_WIDTH);
 		});
 	}
 

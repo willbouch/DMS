@@ -1,5 +1,8 @@
 package dms.view;
 
+import dms.controller.DMSController;
+import dms.controller.InvalidInputException;
+import dms.controller.TODrug;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,9 +17,9 @@ public class DrugDeletionPane extends BorderPane {
 	private static HBox buttonBox;
 	private static VBox motherContainer;
 
-	public DrugDeletionPane() {
+	public DrugDeletionPane(TODrug toDrug) {
 		//Initialization of every attribute
-		messageLabel = new Label("Voulez-vous bien supprimer le produit de la base de données ?");
+		messageLabel = new Label("Voulez-vous bien supprimer ("+toDrug.getName()+") de la base de données ?");
 		yesButton = new Button("Oui");
 		noButton = new Button("Non");
 		buttonBox = new HBox(DMSPage.HBOX_SPACING);
@@ -30,5 +33,25 @@ public class DrugDeletionPane extends BorderPane {
 
 		//Setting the BorderPane
 		this.setCenter(motherContainer);
+
+		//Setting the Listeners
+		setListeners(toDrug);
+	}
+
+	private static void setListeners(TODrug toDrug) {
+		yesButton.setOnAction(e -> {
+			InventoryPane.closeDeleteStage();
+			try {
+				DMSController.deleteDrug(toDrug.getName(), toDrug.getId());
+				InventoryPane.refreshInventoryTable();
+			}
+			catch(InvalidInputException iie) {
+				//We do nothing
+			}
+		});
+		
+		noButton.setOnAction(e -> {
+			InventoryPane.closeDeleteStage();
+		});
 	}
 }

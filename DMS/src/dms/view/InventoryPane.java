@@ -36,13 +36,16 @@ public class InventoryPane extends BorderPane {
 	private static Button manageButton;
 	private static Button deleteButton;
 	private static Button orderButton;
-	private static HBox buttonBox;
+	private static Button addDrugButton;
+	private static HBox buttonHorBox;
+	private static VBox buttonVerBox;
 	private static VBox motherContainer;
 	private static ImageView previousArrow;
 	private static ImageView nextArrow;
 	private static Stage informationStage;
 	private static Stage manageStage;
 	private static Stage deleteStage;
+	private static Stage addDrugStage;
 
 	public InventoryPane() {
 		//Initialization of every attribute
@@ -57,8 +60,10 @@ public class InventoryPane extends BorderPane {
 		informationButton = new Button("Information");
 		manageButton = new Button("Gestion");
 		deleteButton = new Button("Supprimer");
+		addDrugButton = new Button("Ajouter");
 		orderButton = new Button("Approvisionnement");
-		buttonBox = new HBox(DMSPage.HBOX_SPACING);
+		buttonHorBox = new HBox(DMSPage.HBOX_SPACING);
+		buttonVerBox = new VBox(DMSPage.VBOX_SPACING);
 		motherContainer = new VBox(DMSPage.VBOX_SPACING);
 		previousArrow = new ImageView(DMSPage.getResource("dms/resources/nextPreviousArrow.png"));
 		nextArrow = new ImageView(DMSPage.getResource("dms/resources/nextPreviousArrow.png"));
@@ -88,11 +93,13 @@ public class InventoryPane extends BorderPane {
 		refreshInventoryTable();
 
 		//Setting the containers
-		buttonBox.getChildren().addAll(informationButton, manageButton, deleteButton);
-		buttonBox.setAlignment(Pos.CENTER);
+		buttonHorBox.getChildren().addAll(informationButton, manageButton, deleteButton, addDrugButton);
+		buttonHorBox.setAlignment(Pos.CENTER);
+		buttonVerBox.getChildren().addAll(buttonHorBox, orderButton);
+		buttonVerBox.setAlignment(Pos.CENTER);
 		nextPreviousBox.getChildren().addAll(previousArrow, letterField, nextArrow);
 		nextPreviousBox.setAlignment(Pos.CENTER);
-		motherContainer.getChildren().addAll(inventoryTable, nextPreviousBox, buttonBox, orderButton, errorMessage);
+		motherContainer.getChildren().addAll(inventoryTable, nextPreviousBox, buttonVerBox, errorMessage);
 		motherContainer.setAlignment(Pos.CENTER);
 
 		//Setting the BorderPane
@@ -159,6 +166,11 @@ public class InventoryPane extends BorderPane {
 			informationStage.setTitle("Information");
 			informationStage.setHeight(DMSPage.INFORMATION_WINDOW_HEIGHT);
 			informationStage.setWidth(DMSPage.INFORMATION_WINDOW_WIDTH);
+			
+			disableButtons();
+			informationStage.setOnCloseRequest(a -> {
+				enableButtons();
+			});
 		});
 		
 		manageButton.setOnAction(e -> {
@@ -171,22 +183,72 @@ public class InventoryPane extends BorderPane {
 			manageStage.setTitle("Gérer");
 			manageStage.setHeight(DMSPage.MANAGEMENT_WINDOW_HEIGHT);
 			manageStage.setWidth(DMSPage.MANAGEMENT_WINDOW_WIDTH);
+			
+			disableButtons();
+			manageStage.setOnCloseRequest(a -> {
+				enableButtons();
+			});
 		});
 		
 		deleteButton.setOnAction(e -> {
 			deleteStage = new Stage();
 			deleteStage.setAlwaysOnTop(true);
 			deleteStage.initOwner(DMSPage.getPrimaryStage());
-			deleteStage.setScene(new Scene(new DrugDeletionPane()));
+			deleteStage.setScene(new Scene(new DrugDeletionPane(inventoryTable.getSelectionModel().getSelectedItem())));
 			deleteStage.setResizable(false);
 			deleteStage.show();
 			deleteStage.setTitle("Supprimer");
 			deleteStage.setHeight(DMSPage.DELETION_WINDOW_HEIGHT);
 			deleteStage.setWidth(DMSPage.DELETION_WINDOW_WIDTH);
+			
+			disableButtons();
+			deleteStage.setOnCloseRequest(a -> {
+				enableButtons();
+			});
+		});
+		
+		addDrugButton.setOnAction(e -> {
+			addDrugStage = new Stage();
+			addDrugStage.setAlwaysOnTop(true);
+			addDrugStage.initOwner(DMSPage.getPrimaryStage());
+			addDrugStage.setScene(new Scene(new DrugAddingPane()));
+			addDrugStage.setResizable(false);
+			addDrugStage.show();
+			addDrugStage.setTitle("Ajouter");
+			addDrugStage.setHeight(DMSPage.ADDING_WINDOW_HEIGHT);
+			addDrugStage.setWidth(DMSPage.ADDING_WINDOW_WIDTH);
+			
+			disableButtons();
+			addDrugStage.setOnCloseRequest(a -> {
+				enableButtons();
+			});
 		});
 	}
+	
+	public static void closeDeleteStage() {
+		deleteStage.close();
+		enableButtons();
+	}
+	
+	public static void closeManageStage() {
+		manageStage.close();
+		enableButtons();
+	}
+	
+	public static void closeAddDrugStage() {
+		addDrugStage.close();
+		enableButtons();
+	}
+	
+	private static void disableButtons() {
+		buttonVerBox.setDisable(true);
+	}
+	
+	private static void enableButtons() {
+		buttonVerBox.setDisable(false);
+	}
 
-	private static void refreshInventoryTable() {
+	public static void refreshInventoryTable() {
 		inventoryTable.getItems().clear();
 		try {
 			TOInventory toInventory = DMSController.getInventoryWithFirstLetter(letterField.getText().charAt(0));

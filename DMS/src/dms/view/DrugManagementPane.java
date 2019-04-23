@@ -75,6 +75,8 @@ public class DrugManagementPane extends BorderPane {
 			try {
 				DMSController.updateDrug(toDrug.getName(), toDrug.getId(), Integer.parseInt(inHandQuantityField.getText()),
 										 Integer.parseInt(minQuantityField.getText()), Double.parseDouble(priceField.getText()));
+				InventoryPane.refreshInventoryTable();
+				InventoryPane.closeManageStage();
 			}
 			catch(InvalidInputException iie) {
 				errorMessage.setText(iie.getMessage());

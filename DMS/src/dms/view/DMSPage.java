@@ -22,6 +22,8 @@ public class DMSPage extends Application {
 	public final static double MANAGEMENT_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
 	public final static double DELETION_WINDOW_WIDTH = SCREEN_WIDTH / 5;
 	public final static double DELETION_WINDOW_HEIGHT = SCREEN_HEIGHT / 10;
+	public final static double ADDING_WINDOW_WIDTH = SCREEN_WIDTH / 5;
+	public final static double ADDING_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;
 	public final static double ARROW_SIZE = 40;
 	

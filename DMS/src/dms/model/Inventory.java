@@ -16,7 +16,7 @@ public class Inventory implements Serializable
 
   //Inventory Attributes
   private char firstLetter;
-  private Comparator<Drug> drugsPriority;
+  private transient Comparator<Drug> drugsPriority;
 
   //Inventory Associations
   private DMS dMS;

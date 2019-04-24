@@ -1,0 +1,61 @@
+.table-column {
+    -fx-alignment: center;
+}
+.button {
+    -fx-font-weight: bold;
+}
+#greenButton {
+    -fx-background-color:
+        linear-gradient(#33b529, #33b529),
+        radial-gradient(center 50% -45%, radius 200%, #65d122 45%, #4fa218 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+#greenButton:hover {
+    -fx-background-color:
+        linear-gradient(#33b529, #33b529),
+        radial-gradient(center 50% -45%, radius 200%, #6de026 45%, #5bbc1a 50%);
+}
+#redButton {
+    -fx-background-color:
+        linear-gradient(#d61b1b, #d61b1b),
+        radial-gradient(center 50% -45%, radius 200%, #db3d3d 45%, #ad2424 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+#redButton:hover {
+    -fx-background-color:
+        linear-gradient(#d61b1b, #d61b1b),
+        radial-gradient(center 50% -45%, radius 200%, #ff4747 45%, #ce2b2b 50%);
+}
+#yellowButton {
+    -fx-background-color:
+        linear-gradient(#ffc638, #ffc638),
+        radial-gradient(center 50% -45%, radius 200%, #e0aa3e 45%, #c19226 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+#yellowButton:hover {
+    -fx-background-color:
+        linear-gradient(#ffc638, #ffc638),
+        radial-gradient(center 50% -45%, radius 200%, #fcbf46 45%, #e2ab2d 50%);
+}
+.root {
+     -fx-background-color: #606060;
+}
+.label {
+     -fx-text-fill: white;
+     -fx-font-weight: bold;
+     -fx-alignment: center;
+}
+#error {
+     -fx-text-fill: #aa1717;
+     -fx-font-weight: bold;
+     -fx-alignment: center;
+}

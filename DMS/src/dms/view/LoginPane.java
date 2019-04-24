@@ -2,6 +2,7 @@ package dms.view;
 
 import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +23,7 @@ public class LoginPane extends BorderPane {
 	private static HBox usernameBox;
 	private static HBox passwordBox;
 	private static VBox motherContainer;
-	
+
 	public LoginPane() {
 		//Initialization of every attribute
 		errorMessage = new Label(); 
@@ -34,7 +35,7 @@ public class LoginPane extends BorderPane {
 		usernameBox = new HBox(DMSPage.HBOX_SPACING);
 		passwordBox = new HBox(DMSPage.HBOX_SPACING);
 		motherContainer = new VBox(DMSPage.VBOX_SPACING);
-		
+
 		//Setting the containers
 		usernameBox.getChildren().addAll(usernameLabel, usernameField);
 		usernameBox.setAlignment(Pos.CENTER);
@@ -42,14 +43,28 @@ public class LoginPane extends BorderPane {
 		passwordBox.setAlignment(Pos.CENTER);
 		motherContainer.getChildren().addAll(usernameBox, passwordBox, loginButton, errorMessage);
 		motherContainer.setAlignment(Pos.CENTER);
-				
+
 		//Setting the BorderPane
-		this.setCenter(motherContainer);	
-		
+		this.setCenter(motherContainer);
+
+		//Setting the TextFields
+		passwordLabel.setMinWidth(usernameLabel.getWidth());
+		Platform.runLater(()->
+		{
+			//the width of usernameLabel is known only once it is shown
+			passwordLabel.setMinWidth(usernameLabel.getWidth());
+		});
+
 		//Setting the Listeners
 		setListeners();
+
+		//Setting the Style
+		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
+		loginButton.setId("greenButton");
+		errorMessage.setId("error");
+
 	}
-	
+
 	private static void setListeners() {
 		loginButton.setOnAction(e -> {
 			try {
@@ -60,7 +75,7 @@ public class LoginPane extends BorderPane {
 				errorMessage.setText(iie.getMessage());
 			}
 		});
-		
+
 		passwordField.setOnKeyPressed(e -> {
 			if(e.getCode().equals(KeyCode.ENTER)) {
 				loginButton.fire();

@@ -4,6 +4,7 @@ import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
 import dms.controller.TODrug;
 import dms.controller.TOInventory;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -24,10 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class InventoryPane extends BorderPane {
-	private static Label errorMessage;
 	private static TableView<TODrug> inventoryTable;
 	private static TableColumn<TODrug, String> nameColumn;
-	private static TableColumn<TODrug, Integer> idColumn;	
 	private static TableColumn<TODrug, Integer> quantityColumn;
 	private static ObservableList<TODrug> inventoryList;
 	private static HBox nextPreviousBox;
@@ -49,10 +48,8 @@ public class InventoryPane extends BorderPane {
 
 	public InventoryPane() {
 		//Initialization of every attribute
-		errorMessage = new Label(); 
 		inventoryTable = new TableView<>();
 		nameColumn = new TableColumn<>("Nom");
-		idColumn = new TableColumn<>("Id");
 		quantityColumn = new TableColumn<>("Quantité en main");
 		inventoryList = FXCollections.observableArrayList();
 		nextPreviousBox = new HBox(DMSPage.HBOX_SPACING);
@@ -83,30 +80,40 @@ public class InventoryPane extends BorderPane {
 
 		//Setting the TableView
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("inHandQuantity"));
 		inventoryTable.setItems(inventoryList);
-		inventoryTable.getColumns().addAll(nameColumn, idColumn, quantityColumn);
+		inventoryTable.getColumns().addAll(nameColumn, quantityColumn);
 		nameColumn.prefWidthProperty().bind(inventoryTable.widthProperty().divide(inventoryTable.getColumns().size()));
-		idColumn.prefWidthProperty().bind(inventoryTable.widthProperty().divide(inventoryTable.getColumns().size()));
-		quantityColumn.prefWidthProperty().bind(inventoryTable.widthProperty().divide(inventoryTable.getColumns().size()));	
+		quantityColumn.prefWidthProperty().bind(inventoryTable.widthProperty().divide(inventoryTable.getColumns().size()));
 		refreshInventoryTable();
+		Platform.runLater(()->
+		{
+			inventoryTable.setMaxWidth(addDrugButton.getWidth()+informationButton.getWidth()+manageButton.getWidth()+deleteButton.getWidth()+3*DMSPage.HBOX_SPACING);
+		});
 
 		//Setting the containers
-		buttonHorBox.getChildren().addAll(informationButton, manageButton, deleteButton, addDrugButton);
+		buttonHorBox.getChildren().addAll(addDrugButton, informationButton, manageButton, deleteButton);
 		buttonHorBox.setAlignment(Pos.CENTER);
 		buttonVerBox.getChildren().addAll(buttonHorBox, orderButton);
 		buttonVerBox.setAlignment(Pos.CENTER);
 		nextPreviousBox.getChildren().addAll(previousArrow, letterField, nextArrow);
 		nextPreviousBox.setAlignment(Pos.CENTER);
-		motherContainer.getChildren().addAll(inventoryTable, nextPreviousBox, buttonVerBox, errorMessage);
+		motherContainer.getChildren().addAll(inventoryTable, nextPreviousBox, buttonVerBox);
 		motherContainer.setAlignment(Pos.CENTER);
 
 		//Setting the BorderPane
 		this.setCenter(motherContainer);	
 
 		//Setting the Listeners
-		setListeners();
+		setListeners();	
+
+		//Setting the Style
+		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
+		addDrugButton.setId("greenButton");
+		informationButton.setId("yellowButton");
+		manageButton.setId("yellowButton");
+		deleteButton.setId("redButton");
+
 	}
 
 	private static void setListeners() {
@@ -155,58 +162,67 @@ public class InventoryPane extends BorderPane {
 			}
 			refreshInventoryTable();
 		});
-		
+
 		informationButton.setOnAction(e -> {
-			informationStage = new Stage();
-			informationStage.setAlwaysOnTop(true);
-			informationStage.initOwner(DMSPage.getPrimaryStage());
-			informationStage.setScene(new Scene(new DrugInformationPane(inventoryTable.getSelectionModel().getSelectedItem())));
-			informationStage.setResizable(false);
-			informationStage.show();
-			informationStage.setTitle("Information");
-			informationStage.setHeight(DMSPage.INFORMATION_WINDOW_HEIGHT);
-			informationStage.setWidth(DMSPage.INFORMATION_WINDOW_WIDTH);
-			
-			disableButtons();
-			informationStage.setOnCloseRequest(a -> {
-				enableButtons();
-			});
+			TODrug toDrug = inventoryTable.getSelectionModel().getSelectedItem();
+			if(toDrug != null) {
+				informationStage = new Stage();
+				informationStage.setAlwaysOnTop(true);
+				informationStage.initOwner(DMSPage.getPrimaryStage());
+				informationStage.setScene(new Scene(new DrugInformationPane(toDrug)));
+				informationStage.setResizable(false);
+				informationStage.show();
+				informationStage.setTitle("Information");
+				informationStage.setHeight(DMSPage.INFORMATION_WINDOW_HEIGHT);
+				informationStage.setWidth(DMSPage.INFORMATION_WINDOW_WIDTH);
+
+				disableButtons();
+				informationStage.setOnCloseRequest(a -> {
+					enableButtons();
+				});
+			}
 		});
-		
+
 		manageButton.setOnAction(e -> {
-			manageStage = new Stage();
-			manageStage.setAlwaysOnTop(true);
-			manageStage.initOwner(DMSPage.getPrimaryStage());
-			manageStage.setScene(new Scene(new DrugManagementPane(inventoryTable.getSelectionModel().getSelectedItem())));
-			manageStage.setResizable(false);
-			manageStage.show();
-			manageStage.setTitle("Gérer");
-			manageStage.setHeight(DMSPage.MANAGEMENT_WINDOW_HEIGHT);
-			manageStage.setWidth(DMSPage.MANAGEMENT_WINDOW_WIDTH);
-			
-			disableButtons();
-			manageStage.setOnCloseRequest(a -> {
-				enableButtons();
-			});
+			TODrug toDrug = inventoryTable.getSelectionModel().getSelectedItem();
+			if(toDrug != null) {
+				manageStage = new Stage();
+				manageStage.setAlwaysOnTop(true);
+				manageStage.initOwner(DMSPage.getPrimaryStage());
+				manageStage.setScene(new Scene(new DrugManagementPane(toDrug)));
+				manageStage.setResizable(false);
+				manageStage.show();
+				manageStage.setTitle("Gérer");
+				manageStage.setHeight(DMSPage.MANAGEMENT_WINDOW_HEIGHT);
+				manageStage.setWidth(DMSPage.MANAGEMENT_WINDOW_WIDTH);
+
+				disableButtons();
+				manageStage.setOnCloseRequest(a -> {
+					enableButtons();
+				});
+			}
 		});
-		
+
 		deleteButton.setOnAction(e -> {
-			deleteStage = new Stage();
-			deleteStage.setAlwaysOnTop(true);
-			deleteStage.initOwner(DMSPage.getPrimaryStage());
-			deleteStage.setScene(new Scene(new DrugDeletionPane(inventoryTable.getSelectionModel().getSelectedItem())));
-			deleteStage.setResizable(false);
-			deleteStage.show();
-			deleteStage.setTitle("Supprimer");
-			deleteStage.setHeight(DMSPage.DELETION_WINDOW_HEIGHT);
-			deleteStage.setWidth(DMSPage.DELETION_WINDOW_WIDTH);
-			
-			disableButtons();
-			deleteStage.setOnCloseRequest(a -> {
-				enableButtons();
-			});
+			TODrug toDrug = inventoryTable.getSelectionModel().getSelectedItem();
+			if(toDrug != null) {
+				deleteStage = new Stage();
+				deleteStage.setAlwaysOnTop(true);
+				deleteStage.initOwner(DMSPage.getPrimaryStage());
+				deleteStage.setScene(new Scene(new DrugDeletionPane(toDrug)));
+				deleteStage.setResizable(false);
+				deleteStage.show();
+				deleteStage.setTitle("Supprimer");
+				deleteStage.setHeight(DMSPage.DELETION_WINDOW_HEIGHT);
+				deleteStage.setWidth(DMSPage.DELETION_WINDOW_WIDTH);
+
+				disableButtons();
+				deleteStage.setOnCloseRequest(a -> {
+					enableButtons();
+				});
+			}
 		});
-		
+
 		addDrugButton.setOnAction(e -> {
 			addDrugStage = new Stage();
 			addDrugStage.setAlwaysOnTop(true);
@@ -217,33 +233,33 @@ public class InventoryPane extends BorderPane {
 			addDrugStage.setTitle("Ajouter");
 			addDrugStage.setHeight(DMSPage.ADDING_WINDOW_HEIGHT);
 			addDrugStage.setWidth(DMSPage.ADDING_WINDOW_WIDTH);
-			
+
 			disableButtons();
 			addDrugStage.setOnCloseRequest(a -> {
 				enableButtons();
 			});
 		});
 	}
-	
+
 	public static void closeDeleteStage() {
 		deleteStage.close();
 		enableButtons();
 	}
-	
+
 	public static void closeManageStage() {
 		manageStage.close();
 		enableButtons();
 	}
-	
+
 	public static void closeAddDrugStage() {
 		addDrugStage.close();
 		enableButtons();
 	}
-	
+
 	private static void disableButtons() {
 		buttonVerBox.setDisable(true);
 	}
-	
+
 	private static void enableButtons() {
 		buttonVerBox.setDisable(false);
 	}
@@ -257,7 +273,7 @@ public class InventoryPane extends BorderPane {
 			}
 		}
 		catch(InvalidInputException iie) {
-			errorMessage.setText(iie.getMessage());
+			
 		}
 	}
 }

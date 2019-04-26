@@ -3,6 +3,7 @@
 }
 .button {
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 #greenButton {
     -fx-background-color:

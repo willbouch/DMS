@@ -14,30 +14,33 @@ public class DMSPage extends Application {
 	
 	public final static double SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public final static double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	public final static double HBOX_SPACING = SCREEN_WIDTH / 200;
-	public final static double VBOX_SPACING = SCREEN_HEIGHT / 100;
-	public final static double INFORMATION_WINDOW_WIDTH = SCREEN_WIDTH / 10;
-	public final static double INFORMATION_WINDOW_HEIGHT = SCREEN_HEIGHT / 5;
-	public final static double MANAGEMENT_WINDOW_WIDTH = SCREEN_WIDTH / 8;
-	public final static double MANAGEMENT_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
-	public final static double DELETION_WINDOW_WIDTH = SCREEN_WIDTH / 5;
-	public final static double DELETION_WINDOW_HEIGHT = SCREEN_HEIGHT / 10;
-	public final static double ADDING_WINDOW_WIDTH = SCREEN_WIDTH / 5;
-	public final static double ADDING_WINDOW_HEIGHT = SCREEN_HEIGHT / 3.5;
+	public final static double WINDOW_WIDTH = SCREEN_WIDTH / 1.5;
+	public final static double WINDOW_HEIGHT = SCREEN_HEIGHT / 1.5;
+	public final static double HBOX_SPACING = WINDOW_WIDTH / 100;
+	public final static double VBOX_SPACING = WINDOW_HEIGHT / 50;
+	public final static double INFORMATION_WINDOW_WIDTH = WINDOW_WIDTH / 5;
+	public final static double INFORMATION_WINDOW_HEIGHT = WINDOW_HEIGHT / 2.58;
+	public final static double MANAGEMENT_WINDOW_WIDTH = WINDOW_WIDTH / 4;
+	public final static double MANAGEMENT_WINDOW_HEIGHT = WINDOW_HEIGHT / 1.75;
+	public final static double DELETION_WINDOW_WIDTH = WINDOW_WIDTH / 2.5;
+	public final static double DELETION_WINDOW_HEIGHT = WINDOW_HEIGHT / 5;
+	public final static double ADDING_WINDOW_WIDTH = WINDOW_WIDTH / 2.5;
+	public final static double ADDING_WINDOW_HEIGHT = WINDOW_HEIGHT / 1.75;
+	public final static double RECEIPT_HEIGHT = WINDOW_HEIGHT / 2;
+	public final static double RECEIPT_WIDTH = WINDOW_WIDTH / 3;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;
 	public final static double ARROW_SIZE = 40;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		DMSPage.primaryStage = primaryStage;
-		
 		primaryStage.show();
 		primaryStage.setTitle("DMS");
 		primaryStage.setResizable(false);
-		primaryStage.setHeight(SCREEN_HEIGHT/2);
-		primaryStage.setWidth(SCREEN_WIDTH/2);
+		primaryStage.setHeight(WINDOW_HEIGHT);
+		primaryStage.setWidth(WINDOW_WIDTH);
 		
-		toLoginScene();
+		toMainScene();
 		//primaryStage.getIcons().add(new Image("ca/mcgill/ecse223/block/view/resources/logo.jpg"));
 	}
 	
@@ -48,8 +51,8 @@ public class DMSPage extends Application {
 	}
 	
 	public static void toMainScene() {
-		InventoryPane p = new InventoryPane();
-		mainScene = new Scene(p);
+		MainPane mainPane = new MainPane();
+		mainScene = new Scene(mainPane);
 		primaryStage.setScene(mainScene);
 	}
 

@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class InventoryPane extends BorderPane {
+public class InventoryPane extends VBox {
 	private static TableView<TODrug> inventoryTable;
 	private static TableColumn<TODrug, String> nameColumn;
 	private static TableColumn<TODrug, Integer> quantityColumn;
@@ -38,7 +38,6 @@ public class InventoryPane extends BorderPane {
 	private static Button addDrugButton;
 	private static HBox buttonHorBox;
 	private static VBox buttonVerBox;
-	private static VBox motherContainer;
 	private static ImageView previousArrow;
 	private static ImageView nextArrow;
 	private static Stage informationStage;
@@ -61,7 +60,6 @@ public class InventoryPane extends BorderPane {
 		orderButton = new Button("Approvisionnement");
 		buttonHorBox = new HBox(DMSPage.HBOX_SPACING);
 		buttonVerBox = new VBox(DMSPage.VBOX_SPACING);
-		motherContainer = new VBox(DMSPage.VBOX_SPACING);
 		previousArrow = new ImageView(DMSPage.getResource("dms/resources/nextPreviousArrow.png"));
 		nextArrow = new ImageView(DMSPage.getResource("dms/resources/nextPreviousArrow.png"));
 
@@ -71,8 +69,6 @@ public class InventoryPane extends BorderPane {
 		previousArrow.setFitWidth(DMSPage.ARROW_SIZE);
 		nextArrow.setFitHeight(DMSPage.ARROW_SIZE);
 		nextArrow.setFitWidth(DMSPage.ARROW_SIZE);
-		previousArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
-		nextArrow.setEffect(new DropShadow(2, Color.rgb(0, 0, 0, 1)));
 
 		//Setting the letter TextField
 		letterField.setAlignment(Pos.CENTER);
@@ -98,11 +94,11 @@ public class InventoryPane extends BorderPane {
 		buttonVerBox.setAlignment(Pos.CENTER);
 		nextPreviousBox.getChildren().addAll(previousArrow, letterField, nextArrow);
 		nextPreviousBox.setAlignment(Pos.CENTER);
-		motherContainer.getChildren().addAll(inventoryTable, nextPreviousBox, buttonVerBox);
-		motherContainer.setAlignment(Pos.CENTER);
 
-		//Setting the BorderPane
-		this.setCenter(motherContainer);	
+		//Setting the MotherContainer
+		this.getChildren().addAll(inventoryTable, nextPreviousBox, buttonVerBox);
+		this.setAlignment(Pos.CENTER);
+		this.setSpacing(DMSPage.VBOX_SPACING);
 
 		//Setting the Listeners
 		setListeners();	

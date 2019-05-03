@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 51 "../../DMS_Persistence.ump"
-// line 125 "../../DMS_Model.ump"
+// line 123 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 
@@ -19,8 +19,8 @@ public class Inventory implements Serializable
   private transient Comparator<Drug> drugsPriority;
 
   //Inventory Associations
-  private DMS dMS;
   private List<Drug> drugs;
+  private DMS dMS;
 
   //------------------------
   // CONSTRUCTOR
@@ -43,12 +43,12 @@ public class Inventory implements Serializable
                  ((String)arg1.getName()));
         }
       };
+    drugs = new ArrayList<Drug>();
     boolean didAddDMS = setDMS(aDMS);
     if (!didAddDMS)
     {
       throw new RuntimeException("Unable to create inventory due to dMS");
     }
-    drugs = new ArrayList<Drug>();
   }
 
   //------------------------
@@ -71,11 +71,6 @@ public class Inventory implements Serializable
   public Comparator<Drug> getDrugsPriority()
   {
     return drugsPriority;
-  }
-  /* Code from template association_GetOne */
-  public DMS getDMS()
-  {
-    return dMS;
   }
   /* Code from template association_GetMany */
   public Drug getDrug(int index)
@@ -107,24 +102,10 @@ public class Inventory implements Serializable
     int index = drugs.indexOf(aDrug);
     return index;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setDMS(DMS aDMS)
+  /* Code from template association_GetOne */
+  public DMS getDMS()
   {
-    boolean wasSet = false;
-    if (aDMS == null)
-    {
-      return wasSet;
-    }
-
-    DMS existingDMS = dMS;
-    dMS = aDMS;
-    if (existingDMS != null && !existingDMS.equals(aDMS))
-    {
-      existingDMS.removeInventory(this);
-    }
-    dMS.addInventory(this);
-    wasSet = true;
-    return wasSet;
+    return dMS;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfDrugs()
@@ -170,15 +151,28 @@ public class Inventory implements Serializable
     return wasRemoved;
   }
 
+  /* Code from template association_SetOneToMany */
+  public boolean setDMS(DMS aDMS)
+  {
+    boolean wasSet = false;
+    if (aDMS == null)
+    {
+      return wasSet;
+    }
+
+    DMS existingDMS = dMS;
+    dMS = aDMS;
+    if (existingDMS != null && !existingDMS.equals(aDMS))
+    {
+      existingDMS.removeInventory(this);
+    }
+    dMS.addInventory(this);
+    wasSet = true;
+    return wasSet;
+  }
 
   public void delete()
   {
-    DMS existingDMS = dMS;
-    dMS = null;
-    if (existingDMS != null)
-    {
-      existingDMS.delete();
-    }
     while (drugs.size() > 0)
     {
       Drug aDrug = drugs.get(drugs.size() - 1);
@@ -186,6 +180,12 @@ public class Inventory implements Serializable
       drugs.remove(aDrug);
     }
     
+    DMS existingDMS = dMS;
+    dMS = null;
+    if (existingDMS != null)
+    {
+      existingDMS.delete();
+    }
   }
 
   // line 136 "../../DMS_Model.ump"

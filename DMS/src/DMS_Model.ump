@@ -79,8 +79,6 @@ class Drug {
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
 	autounique id;
-
-	* sorted {name} -<@> 1 Inventory;
 	
 	before constructor {
 		
@@ -124,6 +122,8 @@ class Drug {
 
 class Inventory {
 	immutable char firstLetter;
+	
+	1 -<@> * Drug sorted {name};
 	
 	before constructor {
 		if(aFirstLetter < 'A' || aFirstLetter > 'Z') {

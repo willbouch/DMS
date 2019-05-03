@@ -40,29 +40,29 @@ public class Drug implements Serializable
 
   public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
   {
-    // line 87 "../../DMS_Model.ump"
+    // line 85 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
     			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
     				throw new RuntimeException("Le médicament existe déjà.");
     			}
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 95 "../../DMS_Model.ump"
+    // line 93 "../../DMS_Model.ump"
     if(aPrice < 0) {
     			throw new RuntimeException("Le prix ne peut être négatif.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 101 "../../DMS_Model.ump"
+    // line 99 "../../DMS_Model.ump"
     if(aInHandQuantity < 0) {
     			throw new RuntimeException("La quantité en main ne peut être négative.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 113 "../../DMS_Model.ump"
+    // line 111 "../../DMS_Model.ump"
     if(aMinQuantity < 0) {
     			throw new RuntimeException("La quantité minimale ne peut être négative.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 119 "../../DMS_Model.ump"
+    // line 117 "../../DMS_Model.ump"
     if(aConcentration < 0) {
     			throw new RuntimeException("La concentration ne peut être négative.");
     		}
@@ -97,7 +97,7 @@ public class Drug implements Serializable
   public boolean setPrice(double aPrice)
   {
     boolean wasSet = false;
-    // line 95 "../../DMS_Model.ump"
+    // line 93 "../../DMS_Model.ump"
     if(aPrice < 0) {
     			throw new RuntimeException("Le prix ne peut être négatif.");
     		}
@@ -110,7 +110,7 @@ public class Drug implements Serializable
   public boolean setConcentration(double aConcentration)
   {
     boolean wasSet = false;
-    // line 119 "../../DMS_Model.ump"
+    // line 117 "../../DMS_Model.ump"
     if(aConcentration < 0) {
     			throw new RuntimeException("La concentration ne peut être négative.");
     		}
@@ -131,7 +131,7 @@ public class Drug implements Serializable
   public boolean setInHandQuantity(int aInHandQuantity)
   {
     boolean wasSet = false;
-    // line 101 "../../DMS_Model.ump"
+    // line 99 "../../DMS_Model.ump"
     if(aInHandQuantity < 0) {
     			throw new RuntimeException("La quantité en main ne peut être négative.");
     		}
@@ -144,7 +144,7 @@ public class Drug implements Serializable
   public boolean setOrderedQuantity(int aOrderedQuantity)
   {
     boolean wasSet = false;
-    // line 107 "../../DMS_Model.ump"
+    // line 105 "../../DMS_Model.ump"
     if(aOrderedQuantity < 0) {
     			throw new RuntimeException("La quantité commandée ne peut être négative.");
     		}
@@ -165,7 +165,7 @@ public class Drug implements Serializable
   public boolean setMinQuantity(int aMinQuantity)
   {
     boolean wasSet = false;
-    // line 113 "../../DMS_Model.ump"
+    // line 111 "../../DMS_Model.ump"
     if(aMinQuantity < 0) {
     			throw new RuntimeException("La quantité minimale ne peut être négative.");
     		}
@@ -246,11 +246,11 @@ public class Drug implements Serializable
 
   public void delete()
   {
-    Inventory placeholderInventory = inventory;
-    this.inventory = null;
-    if(placeholderInventory != null)
+    Inventory existingInventory = inventory;
+    inventory = null;
+    if (existingInventory != null)
     {
-      placeholderInventory.removeDrug(this);
+      existingInventory.delete();
     }
   }
 

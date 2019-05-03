@@ -1,3 +1,11 @@
+@font-face {
+    src: url('Oswald-Regular.ttf');
+}
+
+.root {
+    -fx-font-family: 'Oswald';
+    -fx-font-size: 16;
+}
 .table-column {
     -fx-alignment: center;
 }
@@ -54,6 +62,9 @@
      -fx-text-fill: white;
      -fx-font-weight: bold;
      -fx-alignment: center;
+}
+#category {
+     -fx-text-fill: #33b529;
 }
 #error {
      -fx-text-fill: #aa1717;

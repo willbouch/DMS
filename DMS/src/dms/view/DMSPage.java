@@ -1,9 +1,8 @@
 package dms.view;
 
-import java.awt.Toolkit;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class DMSPage extends Application {
@@ -12,14 +11,14 @@ public class DMSPage extends Application {
 	private static Scene loginScene;
 	private static Scene mainScene;
 	
-	public final static double SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	public final static double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public final static double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
+	public final static double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 	public final static double WINDOW_WIDTH = SCREEN_WIDTH / 1.5;
 	public final static double WINDOW_HEIGHT = SCREEN_HEIGHT / 1.5;
 	public final static double HBOX_SPACING = WINDOW_WIDTH / 100;
 	public final static double VBOX_SPACING = WINDOW_HEIGHT / 50;
-	public final static double INFORMATION_WINDOW_WIDTH = WINDOW_WIDTH / 5;
-	public final static double INFORMATION_WINDOW_HEIGHT = WINDOW_HEIGHT / 2.58;
+	public final static double INFORMATION_WINDOW_WIDTH = 220;
+	public final static double INFORMATION_WINDOW_HEIGHT = 270;
 	public final static double MANAGEMENT_WINDOW_WIDTH = WINDOW_WIDTH / 4;
 	public final static double MANAGEMENT_WINDOW_HEIGHT = WINDOW_HEIGHT / 1.75;
 	public final static double DELETION_WINDOW_WIDTH = WINDOW_WIDTH / 2.5;
@@ -36,10 +35,10 @@ public class DMSPage extends Application {
 		DMSPage.primaryStage = primaryStage;
 		primaryStage.show();
 		primaryStage.setTitle("DMS");
-		primaryStage.setResizable(false);
+		//primaryStage.setResizable(false);
 		primaryStage.setHeight(WINDOW_HEIGHT);
 		primaryStage.setWidth(WINDOW_WIDTH);
-		
+
 		toMainScene();
 		//primaryStage.getIcons().add(new Image("ca/mcgill/ecse223/block/view/resources/logo.jpg"));
 	}

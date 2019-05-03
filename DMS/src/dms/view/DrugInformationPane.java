@@ -1,34 +1,45 @@
 package dms.view;
 
 import dms.controller.TODrug;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
-public class DrugInformationPane extends BorderPane {
+public class DrugInformationPane extends GridPane {
 	private static Label nameLabel;
 	private static Label concentrationLabel;
 	private static Label priceLabel;
 	private static Label inHandQuantityLabel;
 	private static Label minQuantityLabel;
 	private static Label orderedQuantityLabel;
-	private static VBox motherContainer;
-	
+
 	public DrugInformationPane(TODrug toDrug) {
 		//Initialization of every attribute
-		nameLabel = new Label("Nom : "+toDrug.getName());
-		concentrationLabel = new Label("Concentration : "+toDrug.getConcentration()+" "+toDrug.getUnit());
-		priceLabel = new Label("Prix : "+toDrug.getPrice()+" $");
-		inHandQuantityLabel = new Label("Quantité en main : "+toDrug.getInHandQuantity());
-		minQuantityLabel = new Label("Quantité minimale : "+toDrug.getMinQuantity());
-		orderedQuantityLabel = new Label("Quantité en commande : "+toDrug.getOrderedQuantity());
-		motherContainer = new VBox(DMSPage.VBOX_SPACING);
-		
-		//Setting the containers
-		motherContainer.getChildren().addAll(nameLabel, concentrationLabel, priceLabel,
-											 inHandQuantityLabel, minQuantityLabel, orderedQuantityLabel);
-		
-		//Setting the BorderPane
-		this.setCenter(motherContainer);
+		nameLabel = new Label("Nom :");
+		concentrationLabel = new Label("Concentration :");
+		priceLabel = new Label("Prix :");
+		inHandQuantityLabel = new Label("Quantité en main :");
+		minQuantityLabel = new Label("Quantité minimale :");
+		orderedQuantityLabel = new Label("Quantité en commande :");
+
+		//Setting the GridPane
+		this.addRow(0, nameLabel, new Label(toDrug.getName()));
+		this.addRow(1, concentrationLabel, new Label(toDrug.getConcentration()+" "+toDrug.getUnit()));
+		this.addRow(2, priceLabel, new Label(toDrug.getPrice()+" $"));
+		this.addRow(3, inHandQuantityLabel, new Label(""+toDrug.getInHandQuantity()));
+		this.addRow(4, minQuantityLabel, new Label(""+toDrug.getMinQuantity()));
+		this.addRow(5, orderedQuantityLabel, new Label(""+toDrug.getOrderedQuantity()));
+		this.setVgap(DMSPage.VBOX_SPACING);
+		this.setHgap(DMSPage.HBOX_SPACING);
+		this.setAlignment(Pos.CENTER);
+
+		//Setting the Style
+		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
+		nameLabel.setId("category");
+		concentrationLabel.setId("category");
+		priceLabel.setId("category");
+		inHandQuantityLabel.setId("category");
+		minQuantityLabel.setId("category");
+		orderedQuantityLabel.setId("category");
 	}
 }

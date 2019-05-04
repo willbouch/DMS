@@ -3,19 +3,18 @@ package dms.view;
 import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
 import dms.controller.TODrug;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
-public class DrugDeletionPane extends BorderPane {
+public class DrugDeletionPane extends GridPane {
 	private static Label messageLabel;
 	private static Button yesButton;
 	private static Button noButton;
 	private static HBox buttonBox;
-	private static VBox motherContainer;
 
 	public DrugDeletionPane(TODrug toDrug) {
 		//Initialization of every attribute
@@ -23,16 +22,23 @@ public class DrugDeletionPane extends BorderPane {
 		yesButton = new Button("Oui");
 		noButton = new Button("Non");
 		buttonBox = new HBox(DMSPage.HBOX_SPACING);
-		motherContainer = new VBox(DMSPage.VBOX_SPACING);
 
 		//Setting the containers
 		buttonBox.getChildren().addAll(yesButton, noButton);
 		buttonBox.setAlignment(Pos.CENTER);
-		motherContainer.getChildren().addAll(messageLabel, buttonBox);
-		motherContainer.setAlignment(Pos.CENTER);
+		
+		//Setting the GridPane
+		this.addRow(0, messageLabel);
+		this.addRow(1, buttonBox);
+		this.setVgap(DMSPage.VBOX_SPACING);
+		this.setHgap(DMSPage.HBOX_SPACING);
+		this.setAlignment(Pos.CENTER);
 
-		//Setting the BorderPane
-		this.setCenter(motherContainer);
+		//Setting the Style
+		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
+		messageLabel.setId("redLabel");
+		yesButton.setId("greenButton");
+		noButton.setId("redButton");
 
 		//Setting the Listeners
 		setListeners(toDrug);
@@ -49,7 +55,7 @@ public class DrugDeletionPane extends BorderPane {
 				//We do nothing
 			}
 		});
-		
+
 		noButton.setOnAction(e -> {
 			InventoryPane.closeDeleteStage();
 		});

@@ -66,8 +66,11 @@
 #greenLabel {
      -fx-text-fill: #33b529;
 }
-#yellowLabel{
+#yellowLabel {
      -fx-text-fill: #ffc638;
+}
+#redLabel {
+     -fx-text-fill: #d61b1b;
 }
 #error {
      -fx-text-fill: #aa1717;

@@ -63,8 +63,11 @@
      -fx-font-weight: bold;
      -fx-alignment: center;
 }
-#category {
+#greenLabel {
      -fx-text-fill: #33b529;
+}
+#yellowLabel{
+     -fx-text-fill: #ffc638;
 }
 #error {
      -fx-text-fill: #aa1717;

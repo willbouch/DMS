@@ -35,11 +35,11 @@ public class DrugInformationPane extends GridPane {
 
 		//Setting the Style
 		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
-		nameLabel.setId("category");
-		concentrationLabel.setId("category");
-		priceLabel.setId("category");
-		inHandQuantityLabel.setId("category");
-		minQuantityLabel.setId("category");
-		orderedQuantityLabel.setId("category");
+		nameLabel.setId("yellowLabel");
+		concentrationLabel.setId("yellowLabel");
+		priceLabel.setId("yellowLabel");
+		inHandQuantityLabel.setId("yellowLabel");
+		minQuantityLabel.setId("yellowLabel");
+		orderedQuantityLabel.setId("yellowLabel");
 	}
 }

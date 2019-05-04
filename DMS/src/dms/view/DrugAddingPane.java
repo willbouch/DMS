@@ -2,76 +2,79 @@ package dms.view;
 
 import dms.controller.DMSController;
 import dms.controller.InvalidInputException;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
-public class DrugAddingPane extends BorderPane {
+public class DrugAddingPane extends GridPane {
 	private static Label errorMessage;
 	private static Label nameLabel;
 	private static TextField nameField;
-	private static HBox nameBox;
 	private static Label concentrationLabel;
 	private static TextField concentrationField;
 	private static ComboBox<String> unitComboBox;
-	private static HBox concentrationBox;
 	private static Label priceLabel;
 	private static TextField priceField;
-	private static HBox priceBox;
 	private static Label inHandQuantityLabel;
 	private static TextField inHandQuantityField;
-	private static HBox inHandQuantityBox;
 	private static Label minQuantityLabel;
 	private static TextField minQuantityField;
-	private static HBox minQuantityBox;
 	private static Button addDrugButton;
-	private static VBox motherContainer;
 
 	public DrugAddingPane() {
 		//Initialization of every attribute
 		errorMessage = new Label();
-		nameLabel = new Label("Nom : ");
+		nameLabel = new Label("Nom :");
 		nameField = new TextField();
-		nameBox = new HBox(DMSPage.HBOX_SPACING);
-		concentrationLabel = new Label("Concentration : ");
+		concentrationLabel = new Label("Concentration :");
 		concentrationField = new TextField();
-		concentrationBox = new HBox(DMSPage.HBOX_SPACING);
 		unitComboBox = new ComboBox<>();
-		priceLabel = new Label("Prix : ");
+		priceLabel = new Label("Prix :");
 		priceField = new TextField();
-		priceBox = new HBox(DMSPage.HBOX_SPACING);
-		inHandQuantityLabel = new Label("Quantité en main : ");
+		inHandQuantityLabel = new Label("Quantité en main :");
 		inHandQuantityField = new TextField();
-		inHandQuantityBox = new HBox(DMSPage.HBOX_SPACING);
-		minQuantityLabel = new Label("Quantité minimale : ");
+		minQuantityLabel = new Label("Quantité minimale :");
 		minQuantityField = new TextField();
-		minQuantityBox = new HBox(DMSPage.HBOX_SPACING);
 		addDrugButton = new Button("Ajouter");
-		motherContainer = new VBox(DMSPage.VBOX_SPACING);
 
 		//Setting the ComboBox
 		unitComboBox.getItems().addAll("mcg","mg","mL","mg/mL","U/mL");
 
-		//Setting the containers
-		nameBox.getChildren().addAll(nameLabel, nameField);
-		concentrationBox.getChildren().addAll(concentrationLabel, concentrationField, unitComboBox);
-		priceBox.getChildren().addAll(priceLabel, priceField);
-		inHandQuantityBox.getChildren().addAll(inHandQuantityLabel, inHandQuantityField);
-		minQuantityBox.getChildren().addAll(minQuantityLabel, minQuantityField);
-		motherContainer.getChildren().addAll(nameBox, concentrationBox, priceBox,
-				inHandQuantityBox, minQuantityBox, addDrugButton, errorMessage);
+		///Setting the GridPane
+		this.addRow(0, nameLabel, nameField);
+		this.addRow(1, concentrationLabel, concentrationField, unitComboBox);
+		this.addRow(2, priceLabel, priceField);
+		this.addRow(3, inHandQuantityLabel, inHandQuantityField);
+		this.addRow(4, minQuantityLabel, minQuantityField);
+		this.add(addDrugButton, 0, 5, 3, 1);
+		this.setVgap(DMSPage.VBOX_SPACING);
+		this.setHgap(DMSPage.HBOX_SPACING);
+		this.setAlignment(Pos.CENTER);
 
-		//Setting the BorderPane
-		this.setCenter(motherContainer);
+		//Setting the Button
+		Platform.runLater(() -> {
+			addDrugButton.setPrefWidth(this.getWidth());
+		});
+
+		//Setting the Style
+		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));
+		nameLabel.setId("greenLabel");
+		concentrationLabel.setId("greenLabel");
+		priceLabel.setId("greenLabel");
+		inHandQuantityLabel.setId("greenLabel");
+		minQuantityLabel.setId("greenLabel");
+		addDrugButton.setId("greenButton");
 
 		//Setting the Listeners
 		setListeners();
 	}
-	
+
 	private static void setListeners() {
 		addDrugButton.setOnAction(e -> {
 			try {
@@ -86,6 +89,46 @@ public class DrugAddingPane extends BorderPane {
 			}
 			catch(InvalidInputException iie) {
 				errorMessage.setText(iie.getMessage());
+			}
+		});
+
+		concentrationField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, 
+					String newValue) {
+				if (!newValue.matches("[\\d\\.]*")) {
+					concentrationField.setText(newValue.replaceAll("[^0-9\\.]", ""));
+				}
+			}
+		});	
+		
+		priceField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, 
+					String newValue) {
+				if (!newValue.matches("[\\d\\.]*")) {
+					priceField.setText(newValue.replaceAll("[^0-9\\.]", ""));
+				}
+			}
+		});
+		
+		inHandQuantityField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, 
+					String newValue) {
+				if (!newValue.matches("[\\d]*")) {
+					inHandQuantityField.setText(newValue.replaceAll("\\D", ""));
+				}
+			}
+		});
+		
+		minQuantityField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, 
+					String newValue) {
+				if (!newValue.matches("[\\d]*")) {
+					minQuantityField.setText(newValue.replaceAll("\\D", ""));
+				}
 			}
 		});
 	}

@@ -19,12 +19,12 @@ public class DMSPage extends Application {
 	public final static double VBOX_SPACING = WINDOW_HEIGHT / 50;
 	public final static double INFORMATION_WINDOW_WIDTH = 220;
 	public final static double INFORMATION_WINDOW_HEIGHT = 270;
-	public final static double MANAGEMENT_WINDOW_WIDTH = WINDOW_WIDTH / 4;
-	public final static double MANAGEMENT_WINDOW_HEIGHT = WINDOW_HEIGHT / 1.75;
+	public final static double MANAGEMENT_WINDOW_WIDTH = 350;
+	public final static double MANAGEMENT_WINDOW_HEIGHT = 370;
 	public final static double DELETION_WINDOW_WIDTH = WINDOW_WIDTH / 2.5;
 	public final static double DELETION_WINDOW_HEIGHT = WINDOW_HEIGHT / 5;
-	public final static double ADDING_WINDOW_WIDTH = WINDOW_WIDTH / 2.5;
-	public final static double ADDING_WINDOW_HEIGHT = WINDOW_HEIGHT / 1.75;
+	public final static double ADDING_WINDOW_WIDTH = 420;
+	public final static double ADDING_WINDOW_HEIGHT = 350;
 	public final static double RECEIPT_HEIGHT = WINDOW_HEIGHT / 2;
 	public final static double RECEIPT_WIDTH = WINDOW_WIDTH / 3;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;

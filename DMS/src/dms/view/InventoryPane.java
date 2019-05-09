@@ -85,8 +85,8 @@ public class InventoryPane extends VBox {
 		Platform.runLater(()->
 		{
 			inventoryTable.setMaxWidth(addDrugButton.getWidth()+informationButton.getWidth()+manageButton.getWidth()+deleteButton.getWidth()+3*DMSPage.HBOX_SPACING);
+			inventoryTable.prefHeightProperty().bind(DMSPage.getPrimaryStage().heightProperty());
 		});
-		inventoryTable.prefHeightProperty().bind(DMSPage.getPrimaryStage().heightProperty());
 
 		//Setting the containers
 		buttonHorBox.getChildren().addAll(addDrugButton, informationButton, manageButton, deleteButton);

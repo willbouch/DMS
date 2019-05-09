@@ -1,27 +1,29 @@
 package dms.view;
 
-import javafx.collections.FXCollections;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MainPane extends BorderPane {
 	private static InventoryPane inventoryPane;
 	private static ReceiptPane receiptPane;
+	private static EmployeeManagementPane employeeManagementPane;
+	private static VBox leftBox;
 
 	public MainPane() {
 		//Initialization of every attribute
 		inventoryPane = new InventoryPane();
 		receiptPane = new ReceiptPane();
+		employeeManagementPane = new EmployeeManagementPane();
+		leftBox = new VBox(DMSPage.VBOX_SPACING);
+		
+		//Setting containers
+		leftBox.getChildren().addAll(receiptPane, employeeManagementPane);
+		leftBox.setAlignment(Pos.CENTER);
 		
 		//Setting BorderPane
 		this.setRight(inventoryPane);
-		this.setLeft(receiptPane);
+		this.setLeft(leftBox);
 		
 		//Setting Style
 		this.getStylesheets().add(DMSPage.getResource("dms/resources/stylesheet.css"));

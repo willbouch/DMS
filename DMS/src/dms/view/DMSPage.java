@@ -39,7 +39,7 @@ public class DMSPage extends Application {
 		primaryStage.setHeight(WINDOW_HEIGHT);
 		primaryStage.setWidth(WINDOW_WIDTH);
 
-		toMainScene();
+		toLoginScene();
 		//primaryStage.getIcons().add(new Image("ca/mcgill/ecse223/block/view/resources/logo.jpg"));
 	}
 	

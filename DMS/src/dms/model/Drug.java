@@ -2,11 +2,9 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
-import java.io.Serializable;
 
-// line 63 "../../DMS_Persistence.ump"
 // line 73 "../../DMS_Model.ump"
-public class Drug implements Serializable
+public class Drug
 {
 
   //------------------------
@@ -267,13 +265,5 @@ public class Drug implements Serializable
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
             "minQuantity" + ":" + getMinQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "inventory = "+(getInventory()!=null?Integer.toHexString(System.identityHashCode(getInventory())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 66 "../../DMS_Persistence.ump"
-  private static final long serialVersionUID = 939001747760934442L ;
-
-  
+  }
 }

@@ -78,7 +78,7 @@ class Drug {
 	Integer inHandQuantity;
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
-	autounique id;
+	unique Integer code;
 	
 	before constructor {
 		
@@ -132,10 +132,10 @@ class Inventory {
 	}
 	
 	
-	public Drug findDrug(int id) {
+	public Drug findDrug(int code) {
 		List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {
-			if(drug.getId() == id) {
+			if(drug.getCode() == code) {
 				return drug;
 			}
 		}

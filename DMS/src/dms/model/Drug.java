@@ -2,6 +2,7 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.util.*;
 
 // line 73 "../../DMS_Model.ump"
 public class Drug
@@ -11,7 +12,7 @@ public class Drug
   // STATIC VARIABLES
   //------------------------
 
-  private static int nextId = 1;
+  private static Map<Integer, Drug> drugsByCode = new HashMap<Integer, Drug>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -25,9 +26,7 @@ public class Drug
   private int inHandQuantity;
   private int orderedQuantity;
   private int minQuantity;
-
-  //Autounique Attributes
-  private int id;
+  private int code;
 
   //Drug Associations
   private Inventory inventory;
@@ -36,7 +35,7 @@ public class Drug
   // CONSTRUCTOR
   //------------------------
 
-  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, Inventory aInventory)
+  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, int aCode, Inventory aInventory)
   {
     // line 85 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
@@ -72,7 +71,10 @@ public class Drug
     inHandQuantity = aInHandQuantity;
     resetOrderedQuantity();
     minQuantity = aMinQuantity;
-    id = nextId++;
+    if (!setCode(aCode))
+    {
+      throw new RuntimeException("Cannot create due to duplicate code");
+    }
     boolean didAddInventory = setInventory(aInventory);
     if (!didAddInventory)
     {
@@ -173,6 +175,22 @@ public class Drug
     return wasSet;
   }
 
+  public boolean setCode(int aCode)
+  {
+    boolean wasSet = false;
+    Integer anOldCode = getCode();
+    if (hasWithCode(aCode)) {
+      return wasSet;
+    }
+    code = aCode;
+    wasSet = true;
+    if (anOldCode != null) {
+      drugsByCode.remove(anOldCode);
+    }
+    drugsByCode.put(aCode, this);
+    return wasSet;
+  }
+
   public String getName()
   {
     return name;
@@ -213,9 +231,19 @@ public class Drug
     return minQuantity;
   }
 
-  public int getId()
+  public int getCode()
   {
-    return id;
+    return code;
+  }
+  /* Code from template attribute_GetUnique */
+  public static Drug getWithCode(int aCode)
+  {
+    return drugsByCode.get(aCode);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithCode(int aCode)
+  {
+    return getWithCode(aCode) != null;
   }
   /* Code from template association_GetOne */
   public Inventory getInventory()
@@ -244,6 +272,7 @@ public class Drug
 
   public void delete()
   {
+    drugsByCode.remove(getCode());
     Inventory existingInventory = inventory;
     inventory = null;
     if (existingInventory != null)
@@ -256,14 +285,14 @@ public class Drug
   public String toString()
   {
     return super.toString() + "["+
-            "id" + ":" + getId()+ "," +
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
             "concentration" + ":" + getConcentration()+ "," +
             "unit" + ":" + getUnit()+ "," +
             "inHandQuantity" + ":" + getInHandQuantity()+ "," +
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
-            "minQuantity" + ":" + getMinQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
+            "minQuantity" + ":" + getMinQuantity()+ "," +
+            "code" + ":" + getCode()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "inventory = "+(getInventory()!=null?Integer.toHexString(System.identityHashCode(getInventory())):"null");
   }
 }

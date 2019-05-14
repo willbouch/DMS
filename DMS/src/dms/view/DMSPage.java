@@ -24,7 +24,7 @@ public class DMSPage extends Application {
 	public final static double DELETION_WINDOW_WIDTH = 370;
 	public final static double DELETION_WINDOW_HEIGHT = 135;
 	public final static double ADDING_WINDOW_WIDTH = 420;
-	public final static double ADDING_WINDOW_HEIGHT = 350;
+	public final static double ADDING_WINDOW_HEIGHT = 390;
 	public final static double RECEIPT_HEIGHT = WINDOW_HEIGHT / 2;
 	public final static double RECEIPT_WIDTH = WINDOW_WIDTH / 3;
 	public final static double NUMERICAL_TEXTFIELD_WIDTH = 50;

@@ -25,6 +25,8 @@ public class DrugAddingPane extends GridPane {
 	private static TextField inHandQuantityField;
 	private static Label minQuantityLabel;
 	private static TextField minQuantityField;
+	private static Label codeLabel;
+	private static TextField codeField;
 	private static Button addDrugButton;
 
 	public DrugAddingPane() {
@@ -41,6 +43,8 @@ public class DrugAddingPane extends GridPane {
 		inHandQuantityField = new TextField();
 		minQuantityLabel = new Label("Quantité minimale :");
 		minQuantityField = new TextField();
+		codeLabel = new Label("Code UPC :");
+		codeField = new TextField();
 		addDrugButton = new Button("Ajouter");
 
 		//Setting the ComboBox
@@ -52,7 +56,8 @@ public class DrugAddingPane extends GridPane {
 		this.addRow(2, priceLabel, priceField);
 		this.addRow(3, inHandQuantityLabel, inHandQuantityField);
 		this.addRow(4, minQuantityLabel, minQuantityField);
-		this.add(addDrugButton, 0, 5, 3, 1);
+		this.addRow(5, codeLabel, codeField);
+		this.add(addDrugButton, 0, 6, 3, 1);
 		this.setVgap(DMSPage.VBOX_SPACING);
 		this.setHgap(DMSPage.HBOX_SPACING);
 		this.setAlignment(Pos.CENTER);
@@ -69,6 +74,7 @@ public class DrugAddingPane extends GridPane {
 		priceLabel.setId("greenLabel");
 		inHandQuantityLabel.setId("greenLabel");
 		minQuantityLabel.setId("greenLabel");
+		codeLabel.setId("greenLabel");
 		addDrugButton.setId("greenButton");
 
 		//Setting the Listeners
@@ -83,7 +89,8 @@ public class DrugAddingPane extends GridPane {
 						Double.parseDouble(priceField.getText()),
 						unitComboBox.getSelectionModel().getSelectedItem(),
 						Integer.parseInt(inHandQuantityField.getText()), 
-						Integer.parseInt(minQuantityField.getText()));
+						Integer.parseInt(minQuantityField.getText()),
+						Integer.parseInt(codeField.getText()));
 				InventoryPane.refreshInventoryTable();
 				InventoryPane.closeAddDrugStage();
 			}

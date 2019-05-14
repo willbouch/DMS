@@ -7,6 +7,7 @@ import dms.model.DMS;
 import dms.model.Drug;
 import dms.model.Inventory;
 import dms.model.Pharmacist;
+import dms.model.Receipt;
 import dms.model.User;
 import dms.model.UserRole;
 import dms.persistence.DMSPersistence;
@@ -15,7 +16,7 @@ public class DMSController {
 	
 	//Modifier Methods
 
-	public static void addDrug(String name, double price, double concentration, String unit, int inHandQuantity, int minQuantity) throws InvalidInputException{
+	public static void addDrug(String name, double price, double concentration, String unit, int inHandQuantity, int minQuantity, int code) throws InvalidInputException{
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
@@ -37,8 +38,7 @@ public class DMSController {
 		
 		//We add the drug to the inventory we found and we save the file
 		try {
-			inventory.addDrug(name, price, concentration, unit, inHandQuantity, minQuantity);
-			DMSPersistence.save(dms);
+			inventory.addDrug(name, price, concentration, unit, inHandQuantity, minQuantity, code);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -72,7 +72,6 @@ public class DMSController {
 			drug.setInHandQuantity(newInHandQuantity);
 			drug.setMinQuantity(newMinQuantity);
 			drug.setPrice(newPrice);
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -103,7 +102,6 @@ public class DMSController {
 		
 		try {
 			drug.delete();
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -142,7 +140,6 @@ public class DMSController {
 		
 		try {
 			dms.addUser(username, userRole);
-			DMSPersistence.save(dms);
 		} catch (RuntimeException e) {
 			if (e.getMessage().equals("Cannot create due to duplicate username")) {
 				throw new InvalidInputException("Un compte est déjà associé à ce nom d'utilisateur.");
@@ -183,7 +180,6 @@ public class DMSController {
 
 	public static void deleteUser(String username) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
-		DMS dms = DMSApplication.getDMS();
 		
 		if(currentUserRole == null) {
 			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
@@ -200,7 +196,6 @@ public class DMSController {
 		
 		try {
 			user.delete();
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -209,7 +204,6 @@ public class DMSController {
 	
 	public static void changePassword(String username, String newPassword) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
-		DMS dms = DMSApplication.getDMS();
 		
 		if(currentUserRole == null) {
 			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
@@ -226,7 +220,6 @@ public class DMSController {
 		
 		try {
 			user.getUserRole().setPassword(newPassword);
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -247,7 +240,6 @@ public class DMSController {
 		
 		try {
 			dms.addInventory(firstLetter);
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -257,6 +249,10 @@ public class DMSController {
 	public static void deleteInventory(char firstLetter) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
 		
 		if(currentUserRole instanceof Cashier || currentUserRole instanceof Pharmacist) {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
@@ -269,13 +265,31 @@ public class DMSController {
 		
 		try {
 			inventory.delete();
-			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
 
+	public static void addToReceipt(int code) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+		Receipt currentReceipt = DMSApplication.getCurrentReceipt();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
+		Drug drug = Drug.getWithCode(code);
+		
+		if(currentReceipt == null) {
+			dms.addReceipt(drug.getPrice());
+		}
+		else {
+			currentReceipt.addDrug(drug);
+			currentReceipt.setTotalPrice(currentReceipt.getTotalPrice() + drug.getPrice());
+		}
+	}
 	
 	//Query Methods
 	public static TOInventory getInventoryWithFirstLetter(char firstLetter) throws InvalidInputException {
@@ -299,7 +313,7 @@ public class DMSController {
 					drug.getInHandQuantity(),
 					drug.getOrderedQuantity(),
 					drug.getMinQuantity(),
-					drug.getId(),
+					drug.getCode(),
 					toInventory);
 		}
 		

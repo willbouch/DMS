@@ -291,6 +291,24 @@ public class DMSController {
 		}
 	}
 	
+	public static void deleteReceipt() throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		Receipt currentReceipt = DMSApplication.getCurrentReceipt();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
+		try {
+			currentReceipt.delete();
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+		
+		DMSApplication.setCurrentReceipt(null);
+	}
+	
 	//Query Methods
 	public static TOInventory getInventoryWithFirstLetter(char firstLetter) throws InvalidInputException {
 		DMS dms = DMSApplication.getDMS();

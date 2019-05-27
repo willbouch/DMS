@@ -47,7 +47,7 @@ public class DrugDeletionPane extends GridPane {
 		yesButton.setOnAction(e -> {
 			InventoryPane.closeDeleteStage();
 			try {
-				DMSController.deleteDrug(toDrug.getName(), toDrug.getId());
+				DMSController.deleteDrug(toDrug.getName(), toDrug.getCode());
 				InventoryPane.refreshInventoryTable();
 			}
 			catch(InvalidInputException iie) {

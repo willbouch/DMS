@@ -19,7 +19,7 @@ public class TODrug
   private int inHandQuantity;
   private int orderedQuantity;
   private int minQuantity;
-  private int id;
+  private String code;
 
   //TODrug Associations
   private TOInventory tOInventory;
@@ -28,7 +28,7 @@ public class TODrug
   // CONSTRUCTOR
   //------------------------
 
-  public TODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, int aId, TOInventory aTOInventory)
+  public TODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, String aCode, TOInventory aTOInventory)
   {
     name = aName;
     price = aPrice;
@@ -37,7 +37,7 @@ public class TODrug
     inHandQuantity = aInHandQuantity;
     orderedQuantity = aOrderedQuantity;
     minQuantity = aMinQuantity;
-    id = aId;
+    code = aCode;
     boolean didAddTOInventory = setTOInventory(aTOInventory);
     if (!didAddTOInventory)
     {
@@ -105,10 +105,10 @@ public class TODrug
     return wasSet;
   }
 
-  public boolean setId(int aId)
+  public boolean setCode(String aCode)
   {
     boolean wasSet = false;
-    id = aId;
+    code = aCode;
     wasSet = true;
     return wasSet;
   }
@@ -148,9 +148,9 @@ public class TODrug
     return minQuantity;
   }
 
-  public int getId()
+  public String getCode()
   {
-    return id;
+    return code;
   }
   /* Code from template association_GetOne */
   public TOInventory getTOInventory()
@@ -198,7 +198,7 @@ public class TODrug
             "inHandQuantity" + ":" + getInHandQuantity()+ "," +
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
             "minQuantity" + ":" + getMinQuantity()+ "," +
-            "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "code" + ":" + getCode()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "tOInventory = "+(getTOInventory()!=null?Integer.toHexString(System.identityHashCode(getTOInventory())):"null");
   }
 }

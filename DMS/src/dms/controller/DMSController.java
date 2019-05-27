@@ -16,7 +16,7 @@ public class DMSController {
 	
 	//Modifier Methods
 
-	public static void addDrug(String name, double price, double concentration, String unit, int inHandQuantity, int minQuantity, int code) throws InvalidInputException{
+	public static void addDrug(String name, double price, double concentration, String unit, int inHandQuantity, int minQuantity, String code) throws InvalidInputException{
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
@@ -46,7 +46,7 @@ public class DMSController {
 
 	}
 
-	public static void updateDrug(String name, int id, int newInHandQuantity, int newMinQuantity, double newPrice) throws InvalidInputException {
+	public static void updateDrug(String name, String code, int newInHandQuantity, int newMinQuantity, double newPrice) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
@@ -63,7 +63,7 @@ public class DMSController {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
 		
-		Drug drug = inventory.findDrug(id);
+		Drug drug = inventory.findDrug(code);
 		if(drug == null) {
 			throw new InvalidInputException("Le médicament n'existe pas.");
 		}
@@ -78,7 +78,7 @@ public class DMSController {
 		}
 	}
 
-	public static void deleteDrug(String name, int id) throws InvalidInputException {
+	public static void deleteDrug(String name, String code) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		
@@ -95,7 +95,7 @@ public class DMSController {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
 		
-		Drug drug = inventory.findDrug(id);
+		Drug drug = inventory.findDrug(code);
 		if(drug == null) {
 			throw new InvalidInputException("Le médicament n'existe pas.");
 		}
@@ -271,7 +271,7 @@ public class DMSController {
 		}
 	}
 
-	public static void addToReceipt(int code) throws InvalidInputException {
+	public static void addToReceipt(String code) throws InvalidInputException {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		Receipt currentReceipt = DMSApplication.getCurrentReceipt();

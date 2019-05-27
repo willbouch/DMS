@@ -16,7 +16,7 @@ public class Inventory implements Serializable
 
   //Inventory Attributes
   private char firstLetter;
-  private Comparator<Drug> drugsPriority;
+  private transient Comparator<Drug> drugsPriority;
 
   //Inventory Associations
   private List<Drug> drugs;
@@ -113,7 +113,7 @@ public class Inventory implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Drug addDrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, int aCode)
+  public Drug addDrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode)
   {
     return new Drug(aName, aPrice, aConcentration, aUnit, aInHandQuantity, aMinQuantity, aCode, this);
   }
@@ -200,10 +200,10 @@ public class Inventory implements Serializable
   }
 
   // line 136 "../../DMS_Model.ump"
-   public Drug findDrug(int code){
+   public Drug findDrug(String code){
     List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {
-			if(drug.getCode() == code) {
+			if(drug.getCode().equals(code)) {
 				return drug;
 			}
 		}

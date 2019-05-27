@@ -12,5 +12,5 @@ class TODrug {
 	Integer inHandQuantity;
 	Integer orderedQuantity;
 	Integer minQuantity;
-	Integer id;
+	String code;
 }

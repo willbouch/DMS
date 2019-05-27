@@ -63,9 +63,9 @@ public class TOInventory
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public TODrug addTODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, int aId)
+  public TODrug addTODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, String aCode)
   {
-    return new TODrug(aName, aPrice, aConcentration, aUnit, aInHandQuantity, aOrderedQuantity, aMinQuantity, aId, this);
+    return new TODrug(aName, aPrice, aConcentration, aUnit, aInHandQuantity, aOrderedQuantity, aMinQuantity, aCode, this);
   }
 
   public boolean addTODrug(TODrug aTODrug)

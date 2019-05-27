@@ -73,7 +73,7 @@ public class DrugManagementPane extends GridPane {
 	private static void setListeners(TODrug toDrug) {
 		modifyButton.setOnAction(e -> {
 			try {
-				DMSController.updateDrug(toDrug.getName(), toDrug.getId(), Integer.parseInt(inHandQuantityField.getText()),
+				DMSController.updateDrug(toDrug.getName(), toDrug.getCode(), Integer.parseInt(inHandQuantityField.getText()),
 						Integer.parseInt(minQuantityField.getText()), Double.parseDouble(priceField.getText()));
 				InventoryPane.refreshInventoryTable();
 				InventoryPane.closeManageStage();

@@ -12,7 +12,7 @@ public class Drug
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<Integer, Drug> drugsByCode = new HashMap<Integer, Drug>();
+  private static Map<String, Drug> drugsByCode = new HashMap<String, Drug>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -26,7 +26,7 @@ public class Drug
   private int inHandQuantity;
   private int orderedQuantity;
   private int minQuantity;
-  private int code;
+  private String code;
 
   //Drug Associations
   private Inventory inventory;
@@ -35,7 +35,7 @@ public class Drug
   // CONSTRUCTOR
   //------------------------
 
-  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, int aCode, Inventory aInventory)
+  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode, Inventory aInventory)
   {
     // line 85 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
@@ -175,10 +175,10 @@ public class Drug
     return wasSet;
   }
 
-  public boolean setCode(int aCode)
+  public boolean setCode(String aCode)
   {
     boolean wasSet = false;
-    Integer anOldCode = getCode();
+    String anOldCode = getCode();
     if (hasWithCode(aCode)) {
       return wasSet;
     }
@@ -231,17 +231,17 @@ public class Drug
     return minQuantity;
   }
 
-  public int getCode()
+  public String getCode()
   {
     return code;
   }
   /* Code from template attribute_GetUnique */
-  public static Drug getWithCode(int aCode)
+  public static Drug getWithCode(String aCode)
   {
     return drugsByCode.get(aCode);
   }
   /* Code from template attribute_HasUnique */
-  public static boolean hasWithCode(int aCode)
+  public static boolean hasWithCode(String aCode)
   {
     return getWithCode(aCode) != null;
   }

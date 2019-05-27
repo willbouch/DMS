@@ -90,7 +90,7 @@ public class DrugAddingPane extends GridPane {
 						unitComboBox.getSelectionModel().getSelectedItem(),
 						Integer.parseInt(inHandQuantityField.getText()), 
 						Integer.parseInt(minQuantityField.getText()),
-						Integer.parseInt(codeField.getText()));
+						codeField.getText());
 				InventoryPane.refreshInventoryTable();
 				InventoryPane.closeAddDrugStage();
 			}

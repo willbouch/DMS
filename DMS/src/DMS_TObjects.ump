@@ -14,3 +14,13 @@ class TODrug {
 	Integer minQuantity;
 	String code;
 }
+
+class TOReceipt {
+	1 -- * TOScannedItem;
+}
+
+class TOScannedItem {
+	String name;
+	String code;
+	Double price;
+}

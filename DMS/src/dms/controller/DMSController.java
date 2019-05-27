@@ -338,5 +338,20 @@ public class DMSController {
 		return toInventory;
 	}
 
+	public static TOReceipt getCurrentTOReceipt() throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		Receipt currentReceipt = DMSApplication.getCurrentReceipt();
+		
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+		
+		TOReceipt toReceipt = new TOReceipt();
+		for(Drug drug : currentReceipt.getDrugs()) {
+			toReceipt.addTOScannedItem(drug.getName(), drug.getCode(), drug.getPrice());
+		}
+		
+		return toReceipt;
+	}
 	
 }

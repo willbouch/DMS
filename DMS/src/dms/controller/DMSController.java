@@ -36,9 +36,19 @@ public class DMSController {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
 		
+		//We find the index where to add the drug
+		int index = 0;
+		for(Drug drug : inventory.getDrugs()) {
+			if(name.compareToIgnoreCase(drug.getName()) > 0) {
+				break;
+			}
+			index++;
+		}
+		
 		//We add the drug to the inventory we found and we save the file
 		try {
-			inventory.addDrug(name, price, concentration, unit, inHandQuantity, minQuantity, code);
+			Drug drug = new Drug(name, price, concentration, unit, inHandQuantity, minQuantity, code, inventory);
+			inventory.addOrMoveDrugAt(drug, index);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -101,7 +111,9 @@ public class DMSController {
 		}
 		
 		try {
+			System.out.println(drug);
 			drug.delete();
+			System.out.println(dms.getInventories().size());
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -275,7 +287,6 @@ public class DMSController {
 		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
 		DMS dms = DMSApplication.getDMS();
 		Receipt currentReceipt = DMSApplication.getCurrentReceipt();
-		
 		if(currentUserRole == null) {
 			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
 		}
@@ -283,7 +294,9 @@ public class DMSController {
 		Drug drug = Drug.getWithCode(code);
 		
 		if(currentReceipt == null) {
-			dms.addReceipt(drug.getPrice());
+			currentReceipt = new Receipt(drug.getPrice(), dms);
+			DMSApplication.setCurrentReceipt(currentReceipt);
+			currentReceipt.addDrug(drug);
 		}
 		else {
 			currentReceipt.addDrug(drug);

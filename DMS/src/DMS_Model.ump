@@ -123,14 +123,13 @@ class Drug {
 class Inventory {
 	immutable char firstLetter;
 	
-	1 -<@> * Drug sorted {name};
+	1 -<@> * Drug;
 	
 	before constructor {
 		if(aFirstLetter < 'A' || aFirstLetter > 'Z') {
 			throw new RuntimeException("La première lettre de l'inventaire doit être entre A et Z.");			
 		}	
 	}
-	
 	
 	public Drug findDrug(String code) {
 		List<Drug> drugs = this.getDrugs();

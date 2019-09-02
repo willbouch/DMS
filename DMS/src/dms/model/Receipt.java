@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 147 "../../DMS_Model.ump"
-public class Receipt
+// line 57 "../../DMS_Persistence.ump"
+// line 146 "../../DMS_Model.ump"
+public class Receipt implements Serializable
 {
 
   //------------------------
@@ -179,5 +181,13 @@ public class Receipt
     return super.toString() + "["+
             "totalPrice" + ":" + getTotalPrice()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 60 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 6404159261985579849L ;
+
+  
 }

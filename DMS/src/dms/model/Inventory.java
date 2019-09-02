@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 52 "../../DMS_Persistence.ump"
+// line 51 "../../DMS_Persistence.ump"
 // line 123 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
@@ -16,7 +16,6 @@ public class Inventory implements Serializable
 
   //Inventory Attributes
   private char firstLetter;
-  private transient Comparator<Drug> drugsPriority;
 
   //Inventory Associations
   private List<Drug> drugs;
@@ -34,15 +33,6 @@ public class Inventory implements Serializable
     		}
     // END OF UMPLE BEFORE INJECTION
     firstLetter = aFirstLetter;
-    drugsPriority = 
-      new Comparator<Drug>(){
-        @Override
-        public int compare(Drug arg0, Drug arg1)
-        {
-          return ((String)arg0.getName()).compareTo(
-                 ((String)arg1.getName()));
-        }
-      };
     drugs = new ArrayList<Drug>();
     boolean didAddDMS = setDMS(aDMS);
     if (!didAddDMS)
@@ -55,22 +45,9 @@ public class Inventory implements Serializable
   // INTERFACE
   //------------------------
 
-  public boolean setDrugsPriority(Comparator<Drug> aDrugsPriority)
-  {
-    boolean wasSet = false;
-    drugsPriority = aDrugsPriority;
-    wasSet = true;
-    return wasSet;
-  }
-
   public char getFirstLetter()
   {
     return firstLetter;
-  }
-
-  public Comparator<Drug> getDrugsPriority()
-  {
-    return drugsPriority;
   }
   /* Code from template association_GetMany */
   public Drug getDrug(int index)
@@ -133,9 +110,6 @@ public class Inventory implements Serializable
       drugs.add(aDrug);
     }
     wasAdded = true;
-    if(wasAdded)
-        Collections.sort(drugs, drugsPriority);
-    
     return wasAdded;
   }
 
@@ -150,7 +124,38 @@ public class Inventory implements Serializable
     }
     return wasRemoved;
   }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addDrugAt(Drug aDrug, int index)
+  {  
+    boolean wasAdded = false;
+    if(addDrug(aDrug))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDrugs()) { index = numberOfDrugs() - 1; }
+      drugs.remove(aDrug);
+      drugs.add(index, aDrug);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
 
+  public boolean addOrMoveDrugAt(Drug aDrug, int index)
+  {
+    boolean wasAdded = false;
+    if(drugs.contains(aDrug))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfDrugs()) { index = numberOfDrugs() - 1; }
+      drugs.remove(aDrug);
+      drugs.add(index, aDrug);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addDrugAt(aDrug, index);
+    }
+    return wasAdded;
+  }
   /* Code from template association_SetOneToMany */
   public boolean setDMS(DMS aDMS)
   {
@@ -188,18 +193,7 @@ public class Inventory implements Serializable
     }
   }
 
-  // line 58 "../../DMS_Persistence.ump"
-   public static  void reinitializeDrugPriority(List<Inventory> inventories){
-    for(Inventory inventory : inventories) {
-  			inventory.setDrugsPriority(new Comparator<Drug>() {
-  				@Override
-  				public int compare(Drug arg0, Drug arg1) {
-  					return (arg0.getName().compareTo(arg1.getName()));
-  				}});
-  			}
-  }
-
-  // line 136 "../../DMS_Model.ump"
+  // line 135 "../../DMS_Model.ump"
    public Drug findDrug(String code){
     List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {
@@ -216,14 +210,13 @@ public class Inventory implements Serializable
   {
     return super.toString() + "["+
             "firstLetter" + ":" + getFirstLetter()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "drugsPriority" + "=" + (getDrugsPriority() != null ? !getDrugsPriority().equals(this)  ? getDrugsPriority().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
   }  
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 55 "../../DMS_Persistence.ump"
+  // line 54 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 5332292624658907512L ;
 
   

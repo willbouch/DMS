@@ -8,7 +8,6 @@ class DMS {
   private static final long serialVersionUID = 6181302407834705923L;
   public void reinitialize() {
 		User.reinitializeUniqueUserName(this.getUsers());
-		Inventory.reinitializeDrugPriority(this.getInventories());
 	}
 }
 
@@ -53,17 +52,6 @@ class Inventory {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 5332292624658907512L;
-  
-  public static void reinitializeDrugPriority(List<Inventory> inventories){
-  		for(Inventory inventory : inventories) {
-  			inventory.setDrugsPriority(new Comparator<Drug>() {
-  				@Override
-  				public int compare(Drug arg0, Drug arg1) {
-  					return (arg0.getName().compareTo(arg1.getName()));
-  				}});
-  			}
-  		}
-  	}
 }
 
 class Receipt {

@@ -2,11 +2,13 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package dms.model;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.*;
 
+// line 69 "../../DMS_Persistence.ump"
 // line 65 "../../DMS_Model.ump"
-public class Order
+public class Order implements Serializable
 {
 
   //------------------------
@@ -226,5 +228,13 @@ public class Order
             "  " + "pharmacist = "+(getPharmacist()!=null?Integer.toHexString(System.identityHashCode(getPharmacist())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "administrator = "+(getAdministrator()!=null?Integer.toHexString(System.identityHashCode(getAdministrator())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "dMS = "+(getDMS()!=null?Integer.toHexString(System.identityHashCode(getDMS())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 72 "../../DMS_Persistence.ump"
+  private static final long serialVersionUID = 8597675110221231714L ;
+
+  
 }

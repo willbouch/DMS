@@ -4,7 +4,7 @@
 package dms.model;
 import java.io.Serializable;
 
-// line 34 "../../DMS_Persistence.ump"
+// line 33 "../../DMS_Persistence.ump"
 // line 53 "../../DMS_Model.ump"
 public class Cashier extends UserRole implements Serializable
 {
@@ -35,7 +35,7 @@ public class Cashier extends UserRole implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 37 "../../DMS_Persistence.ump"
+  // line 36 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 1959250384912895829L ;
 
   

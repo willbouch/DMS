@@ -49,6 +49,7 @@ public class DMSController {
 		try {
 			Drug drug = new Drug(name, price, concentration, unit, inHandQuantity, minQuantity, code, inventory);
 			inventory.addOrMoveDrugAt(drug, index);
+			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -82,6 +83,7 @@ public class DMSController {
 			drug.setInHandQuantity(newInHandQuantity);
 			drug.setMinQuantity(newMinQuantity);
 			drug.setPrice(newPrice);
+			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -111,9 +113,8 @@ public class DMSController {
 		}
 		
 		try {
-			System.out.println(drug);
 			drug.delete();
-			System.out.println(dms.getInventories().size());
+			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -152,6 +153,7 @@ public class DMSController {
 		
 		try {
 			dms.addUser(username, userRole);
+			DMSPersistence.save(dms);
 		} catch (RuntimeException e) {
 			if (e.getMessage().equals("Cannot create due to duplicate username")) {
 				throw new InvalidInputException("Un compte est déjà associé à ce nom d'utilisateur.");
@@ -208,6 +210,7 @@ public class DMSController {
 		
 		try {
 			user.delete();
+			DMSPersistence.save(DMSApplication.getDMS());
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -232,6 +235,7 @@ public class DMSController {
 		
 		try {
 			user.getUserRole().setPassword(newPassword);
+			DMSPersistence.save(DMSApplication.getDMS());
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -252,6 +256,7 @@ public class DMSController {
 		
 		try {
 			dms.addInventory(firstLetter);
+			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -277,6 +282,7 @@ public class DMSController {
 		
 		try {
 			inventory.delete();
+			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());

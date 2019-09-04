@@ -275,11 +275,11 @@ public class Drug implements Serializable
   public void delete()
   {
     drugsByCode.remove(getCode());
-    Inventory existingInventory = inventory;
-    inventory = null;
-    if (existingInventory != null)
+    Inventory placeholderInventory = inventory;
+    this.inventory = null;
+    if(placeholderInventory != null)
     {
-      existingInventory.delete();
+      placeholderInventory.removeDrug(this);
     }
   }
 

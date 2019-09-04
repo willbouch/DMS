@@ -123,7 +123,7 @@ class Drug {
 class Inventory {
 	immutable char firstLetter;
 	
-	1 -<@> * Drug;
+	1 <@>- * Drug;
 	
 	before constructor {
 		if(aFirstLetter < 'A' || aFirstLetter > 'Z') {

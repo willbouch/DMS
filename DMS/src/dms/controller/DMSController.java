@@ -39,7 +39,7 @@ public class DMSController {
 		//We find the index where to add the drug
 		int index = 0;
 		for(Drug drug : inventory.getDrugs()) {
-			if(name.compareToIgnoreCase(drug.getName()) > 0) {
+			if(name.compareToIgnoreCase(drug.getName()) < 0) {
 				break;
 			}
 			index++;

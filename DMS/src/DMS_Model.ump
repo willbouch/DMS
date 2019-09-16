@@ -155,4 +155,12 @@ class Receipt {
     wasAdded = true;
     return wasAdded;
   }
+  
+  public boolean removeAllInstancesOfDrug(Drug aDrug)
+  {
+    boolean wasRemoved = false;
+    drugs.removeAll(Arrays.asList(aDrug));;
+    wasRemoved = true;
+    return wasRemoved;
+  }
 }

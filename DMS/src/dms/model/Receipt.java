@@ -183,6 +183,14 @@ public class Receipt implements Serializable
     return wasAdded;
   }
 
+  // line 161 "../../DMS_Model.ump"
+   public boolean removeAllInstancesOfDrug(Drug aDrug){
+    boolean wasRemoved = false;
+    drugs.removeAll(Arrays.asList(aDrug));;
+    wasRemoved = true;
+    return wasRemoved;
+  }
+
 
   public String toString()
   {

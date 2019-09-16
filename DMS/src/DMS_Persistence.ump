@@ -8,6 +8,7 @@ class DMS {
   private static final long serialVersionUID = 6181302407834705923L;
   public void reinitialize() {
 		User.reinitializeUniqueUserName(this.getUsers());
+		Inventory.reinitializeInventoryDrugs(this.getInventories());
 	}
 }
 
@@ -52,6 +53,14 @@ class Inventory {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 5332292624658907512L;
+  
+  public static void reinitializeInventoryDrugs(List<Inventory> inventories){
+  		List<Drug> allDrugs = new ArrayList<Drug>();
+  		for(Inventory inventory : inventories) {
+  			allDrugs.addAll(inventory.getDrugs());
+  		}
+  		Drug.reinitializeUniqueDrugCode(allDrugs);
+  	}
 }
 
 class Receipt {
@@ -64,6 +73,13 @@ class Drug {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 939001747760934442L;
+  
+  public static void reinitializeUniqueDrugCode(List<Drug> drugs){
+  		drugsByCode = new HashMap<String, Drug>();
+  		for (Drug drug : drugs) {
+  			drugsByCode.put(drug.getCode(), drug);
+  		}
+  	}
 }
 
 class Order {

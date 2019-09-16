@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 63 "../../DMS_Persistence.ump"
+// line 72 "../../DMS_Persistence.ump"
 // line 73 "../../DMS_Model.ump"
 public class Drug implements Serializable
 {
@@ -283,6 +283,14 @@ public class Drug implements Serializable
     }
   }
 
+  // line 78 "../../DMS_Persistence.ump"
+   public static  void reinitializeUniqueDrugCode(List<Drug> drugs){
+    drugsByCode = new HashMap<String, Drug>();
+  		for (Drug drug : drugs) {
+  			drugsByCode.put(drug.getCode(), drug);
+  		}
+  }
+
 
   public String toString()
   {
@@ -301,7 +309,7 @@ public class Drug implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 66 "../../DMS_Persistence.ump"
+  // line 75 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 939001747760934442L ;
 
   

@@ -591,6 +591,7 @@ public class DMS implements Serializable
   // line 10 "../../DMS_Persistence.ump"
    public void reinitialize(){
     User.reinitializeUniqueUserName(this.getUsers());
+		Inventory.reinitializeInventoryDrugs(this.getInventories());
   }
 
   // line 13 "../../DMS_Model.ump"

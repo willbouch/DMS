@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 14 "../../DMS_Persistence.ump"
+// line 15 "../../DMS_Persistence.ump"
 // line 23 "../../DMS_Model.ump"
 public class User implements Serializable
 {
@@ -150,7 +150,7 @@ public class User implements Serializable
     }
   }
 
-  // line 20 "../../DMS_Persistence.ump"
+  // line 21 "../../DMS_Persistence.ump"
    public static  void reinitializeUniqueUserName(List<User> users){
     usersByUsername = new HashMap<String, User>();
   		for (User user : users) {
@@ -170,7 +170,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 17 "../../DMS_Persistence.ump"
+  // line 18 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
   

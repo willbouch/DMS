@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.*;
 
-// line 69 "../../DMS_Persistence.ump"
+// line 85 "../../DMS_Persistence.ump"
 // line 65 "../../DMS_Model.ump"
 public class Order implements Serializable
 {
@@ -233,7 +233,7 @@ public class Order implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 72 "../../DMS_Persistence.ump"
+  // line 88 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 8597675110221231714L ;
 
   

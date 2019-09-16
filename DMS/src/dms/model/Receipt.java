@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 57 "../../DMS_Persistence.ump"
+// line 66 "../../DMS_Persistence.ump"
 // line 146 "../../DMS_Model.ump"
 public class Receipt implements Serializable
 {
@@ -186,7 +186,7 @@ public class Receipt implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 60 "../../DMS_Persistence.ump"
+  // line 69 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 6404159261985579849L ;
 
   

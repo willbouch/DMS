@@ -5,7 +5,7 @@ package dms.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 51 "../../DMS_Persistence.ump"
+// line 52 "../../DMS_Persistence.ump"
 // line 123 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
@@ -193,6 +193,15 @@ public class Inventory implements Serializable
     }
   }
 
+  // line 58 "../../DMS_Persistence.ump"
+   public static  void reinitializeInventoryDrugs(List<Inventory> inventories){
+    List<Drug> allDrugs = new ArrayList<Drug>();
+  		for(Inventory inventory : inventories) {
+  			allDrugs.addAll(inventory.getDrugs());
+  		}
+  		Drug.reinitializeUniqueDrugCode(allDrugs);
+  }
+
   // line 135 "../../DMS_Model.ump"
    public Drug findDrug(String code){
     List<Drug> drugs = this.getDrugs();
@@ -216,7 +225,7 @@ public class Inventory implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 54 "../../DMS_Persistence.ump"
+  // line 55 "../../DMS_Persistence.ump"
   private static final long serialVersionUID = 5332292624658907512L ;
 
   

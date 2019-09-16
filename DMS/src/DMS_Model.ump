@@ -147,4 +147,12 @@ class Receipt {
 	Double totalPrice;
 	
 	1 -> * Drug;
+	
+	public boolean addDrugAllowDuplicates(Drug aDrug)
+  {
+    boolean wasAdded = false;
+    drugs.add(aDrug);
+    wasAdded = true;
+    return wasAdded;
+  }
 }

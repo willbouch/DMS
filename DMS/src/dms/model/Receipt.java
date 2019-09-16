@@ -175,6 +175,14 @@ public class Receipt implements Serializable
     }
   }
 
+  // line 153 "../../DMS_Model.ump"
+   public boolean addDrugAllowDuplicates(Drug aDrug){
+    boolean wasAdded = false;
+    drugs.add(aDrug);
+    wasAdded = true;
+    return wasAdded;
+  }
+
 
   public String toString()
   {

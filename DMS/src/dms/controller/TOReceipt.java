@@ -4,13 +4,16 @@
 package dms.controller;
 import java.util.*;
 
-// line 18 "../../DMS_TObjects.ump"
+// line 14 "../../DMS_TObjects.ump"
 public class TOReceipt
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
+
+  //TOReceipt Attributes
+  private double totalPrice;
 
   //TOReceipt Associations
   private List<TOScannedItem> tOScannedItems;
@@ -19,14 +22,28 @@ public class TOReceipt
   // CONSTRUCTOR
   //------------------------
 
-  public TOReceipt()
+  public TOReceipt(double aTotalPrice)
   {
+    totalPrice = aTotalPrice;
     tOScannedItems = new ArrayList<TOScannedItem>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setTotalPrice(double aTotalPrice)
+  {
+    boolean wasSet = false;
+    totalPrice = aTotalPrice;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public double getTotalPrice()
+  {
+    return totalPrice;
+  }
   /* Code from template association_GetMany */
   public TOScannedItem getTOScannedItem(int index)
   {
@@ -139,4 +156,10 @@ public class TOReceipt
     }
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "totalPrice" + ":" + getTotalPrice()+ "]";
+  }
 }

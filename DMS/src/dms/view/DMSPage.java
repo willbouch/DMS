@@ -1,7 +1,10 @@
 package dms.view;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -35,24 +38,20 @@ public class DMSPage extends Application {
 		DMSPage.primaryStage = primaryStage;
 		primaryStage.show();
 		primaryStage.setTitle("DMS");
-		//primaryStage.setResizable(false);
-		primaryStage.setHeight(WINDOW_HEIGHT);
-		primaryStage.setWidth(WINDOW_WIDTH);
 
 		toLoginScene();
-		//primaryStage.getIcons().add(new Image("ca/mcgill/ecse223/block/view/resources/logo.jpg"));
 	}
 	
-	public static void toLoginScene() {
-		LoginPane loginPane = new LoginPane();
-		loginScene = new Scene(loginPane);
-		primaryStage.setScene(loginScene);
+	public static void toLoginScene() throws Exception {
+		VBox pane = (VBox) FXMLLoader.load(DMSPage.class.getResource("loginScreen.fxml"));
+		primaryStage.setScene(new Scene(pane));
+		primaryStage.show();
 	}
 	
-	public static void toMainScene() {
-		MainPane mainPane = new MainPane();
-		mainScene = new Scene(mainPane);
-		primaryStage.setScene(mainScene);
+	public static void toMainScene() throws Exception {
+		GridPane pane = (GridPane) FXMLLoader.load(DMSPage.class.getResource("MainScreen.fxml"));
+		primaryStage.setScene(new Scene(pane));
+		primaryStage.show();
 	}
 
 	public static String getResource(String res) {

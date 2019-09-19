@@ -79,6 +79,7 @@ class Drug {
 	defaulted Integer orderedQuantity = 0;
 	Integer minQuantity;
 	unique String code;
+	Boolean toOrder;
 	
 	before constructor {
 		
@@ -117,6 +118,11 @@ class Drug {
 		if(aConcentration < 0) {
 			throw new RuntimeException("La concentration ne peut être négative.");
 		}
+	}
+	
+	public static List<Drug> getAllDrugs() {
+		List<Drug> list = new ArrayList<Drug>(drugsByCode.values());
+		return list;
 	}
 }
 

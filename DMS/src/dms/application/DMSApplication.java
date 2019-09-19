@@ -1,5 +1,7 @@
 package dms.application;
 
+import dms.controller.DMSController;
+import dms.controller.InvalidInputException;
 import dms.model.Administrator;
 import dms.model.DMS;
 import dms.model.Receipt;
@@ -29,12 +31,6 @@ public class DMSApplication {
 			for(int i = 65; i < 91; ++i) {
 				dms.addInventory((char)i);
 			}
-		}
-		try {
-			dms.getInventory(0).addDrug("A", 13.9, 13.7, "ml", 12, 14, "123124");
-		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
 		}
 
 	}

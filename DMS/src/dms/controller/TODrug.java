@@ -3,7 +3,7 @@
 
 package dms.controller;
 
-// line 7 "../../DMS_TObjects.ump"
+// line 3 "../../DMS_TObjects.ump"
 public class TODrug
 {
 
@@ -21,14 +21,11 @@ public class TODrug
   private int minQuantity;
   private String code;
 
-  //TODrug Associations
-  private TOInventory tOInventory;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, String aCode, TOInventory aTOInventory)
+  public TODrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aOrderedQuantity, int aMinQuantity, String aCode)
   {
     name = aName;
     price = aPrice;
@@ -38,11 +35,6 @@ public class TODrug
     orderedQuantity = aOrderedQuantity;
     minQuantity = aMinQuantity;
     code = aCode;
-    boolean didAddTOInventory = setTOInventory(aTOInventory);
-    if (!didAddTOInventory)
-    {
-      throw new RuntimeException("Unable to create tODrug due to tOInventory");
-    }
   }
 
   //------------------------
@@ -152,40 +144,9 @@ public class TODrug
   {
     return code;
   }
-  /* Code from template association_GetOne */
-  public TOInventory getTOInventory()
-  {
-    return tOInventory;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setTOInventory(TOInventory aTOInventory)
-  {
-    boolean wasSet = false;
-    if (aTOInventory == null)
-    {
-      return wasSet;
-    }
-
-    TOInventory existingTOInventory = tOInventory;
-    tOInventory = aTOInventory;
-    if (existingTOInventory != null && !existingTOInventory.equals(aTOInventory))
-    {
-      existingTOInventory.removeTODrug(this);
-    }
-    tOInventory.addTODrug(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
-  {
-    TOInventory placeholderTOInventory = tOInventory;
-    this.tOInventory = null;
-    if(placeholderTOInventory != null)
-    {
-      placeholderTOInventory.removeTODrug(this);
-    }
-  }
+  {}
 
 
   public String toString()
@@ -198,7 +159,6 @@ public class TODrug
             "inHandQuantity" + ":" + getInHandQuantity()+ "," +
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
             "minQuantity" + ":" + getMinQuantity()+ "," +
-            "code" + ":" + getCode()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "tOInventory = "+(getTOInventory()!=null?Integer.toHexString(System.identityHashCode(getTOInventory())):"null");
+            "code" + ":" + getCode()+ "]";
   }
 }

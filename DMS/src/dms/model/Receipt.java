@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 66 "../../DMS_Persistence.ump"
-// line 146 "../../DMS_Model.ump"
+// line 152 "../../DMS_Model.ump"
 public class Receipt implements Serializable
 {
 
@@ -175,7 +175,7 @@ public class Receipt implements Serializable
     }
   }
 
-  // line 153 "../../DMS_Model.ump"
+  // line 159 "../../DMS_Model.ump"
    public boolean addDrugAllowDuplicates(Drug aDrug){
     boolean wasAdded = false;
     drugs.add(aDrug);
@@ -183,7 +183,7 @@ public class Receipt implements Serializable
     return wasAdded;
   }
 
-  // line 161 "../../DMS_Model.ump"
+  // line 167 "../../DMS_Model.ump"
    public boolean removeAllInstancesOfDrug(Drug aDrug){
     boolean wasRemoved = false;
     drugs.removeAll(Arrays.asList(aDrug));;

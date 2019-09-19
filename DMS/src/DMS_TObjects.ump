@@ -1,9 +1,5 @@
 namespace dms.controller;
 
-class TOInventory {
-	1 -- * TODrug;
-}
-
 class TODrug {
 	String name;
 	Double price;
@@ -16,6 +12,7 @@ class TODrug {
 }
 
 class TOReceipt {
+	Double totalPrice;
 	1 -- * TOScannedItem;
 }
 

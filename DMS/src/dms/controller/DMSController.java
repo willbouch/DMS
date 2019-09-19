@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -61,7 +62,7 @@ public class DMSController {
 
 		//We add the drug to the inventory we found and we save the file
 		try {
-			Drug drug = new Drug(name, price, concentration, unit, inHandQuantity, minQuantity, code, inventory);
+			Drug drug = new Drug(name, price, concentration, unit, inHandQuantity, minQuantity, code, (inHandQuantity <= minQuantity), inventory);
 			inventory.addOrMoveDrugAt(drug, index);
 			DMSPersistence.save(dms);
 		}
@@ -83,12 +84,7 @@ public class DMSController {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
 
-		Inventory inventory = dms.findInventory(name.charAt(0));
-		if(inventory == null) {
-			throw new InvalidInputException("L'inventaire n'existe pas.");
-		}
-
-		Drug drug = inventory.findDrug(code);
+		Drug drug = Drug.getWithCode(code);
 		if(drug == null) {
 			throw new InvalidInputException("Le médicament n'existe pas.");
 		}
@@ -97,6 +93,30 @@ public class DMSController {
 			drug.setInHandQuantity(newInHandQuantity);
 			drug.setMinQuantity(newMinQuantity);
 			drug.setPrice(newPrice);
+			drug.setToOrder((newInHandQuantity <= newMinQuantity));
+			DMSPersistence.save(dms);
+		}
+		catch(RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+	}
+
+	public static void reduceDrugQuantityByOne(TOScannedItem toScannedItem) throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+		DMS dms = DMSApplication.getDMS();
+
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+
+		Drug drug = Drug.getWithCode(toScannedItem.getCode());
+		if(drug == null) {
+			throw new InvalidInputException("Le médicament n'existe pas.");
+		}
+
+		try {
+			drug.setInHandQuantity(drug.getInHandQuantity()-1);
+			drug.setToOrder((drug.getInHandQuantity() <= drug.getMinQuantity()));
 			DMSPersistence.save(dms);
 		}
 		catch(RuntimeException e) {
@@ -116,12 +136,7 @@ public class DMSController {
 			throw new InvalidInputException("Vous n'avez pas les droits nécessaires pour cette opération.");
 		}
 
-		Inventory inventory = dms.findInventory(name.charAt(0));
-		if(inventory == null) {
-			throw new InvalidInputException("L'inventaire n'existe pas.");
-		}
-
-		Drug drug = inventory.findDrug(code);
+		Drug drug = Drug.getWithCode(code);
 		if(drug == null) {
 			throw new InvalidInputException("Le médicament n'existe pas.");
 		}
@@ -353,17 +368,17 @@ public class DMSController {
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("D:\\Duplex\\Bureau\\files\\samplefile1.txt"));
-			
+
 			writer.write(ReceiptTemplate.RECEIPT_TOP_TEMPLATE);
 
 			for(Drug drug : currentReceipt.getDrugs()) {
 				writer.write("  "+String.format("%1$-" + 15 + "s", drug.getName())+String.format("%1$-" + 23 + "s", drug.getCode())+drug.getPrice()+"\n\n");
 			}
-			
+
 			writer.write("  Total : "+String.format( "%.2f", currentReceipt.getTotalPrice())+"\n");
-			
+
 			writer.write(ReceiptTemplate.RECEIPT_BOT_TEMPLATE);
-			
+
 			writer.close();
 		}
 		catch(IOException i) {
@@ -384,7 +399,7 @@ public class DMSController {
 	}
 
 	//Query Methods
-	public static TOInventory getInventoryWithFirstLetter(char firstLetter) throws InvalidInputException {
+	public static List<TODrug> getInventoryWithFirstLetter(char firstLetter) throws InvalidInputException {
 		DMS dms = DMSApplication.getDMS();
 
 		if(firstLetter < 'A' || firstLetter > 'Z') {
@@ -395,21 +410,44 @@ public class DMSController {
 		if(inventory == null) {
 			throw new InvalidInputException("L'inventaire n'existe pas.");
 		}
-		TOInventory toInventory = new TOInventory();
 
+		List<TODrug> list = new ArrayList<TODrug>();
 		for(Drug drug : inventory.getDrugs()) {
-			new TODrug(drug.getName(),
-					drug.getPrice(),
-					drug.getConcentration(),
-					drug.getUnit(),
-					drug.getInHandQuantity(),
-					drug.getOrderedQuantity(),
-					drug.getMinQuantity(),
-					drug.getCode(),
-					toInventory);
+			list.add(new TODrug(drug.getName(),
+								drug.getPrice(),
+								drug.getConcentration(),
+								drug.getUnit(),
+								drug.getInHandQuantity(),
+								drug.getOrderedQuantity(),
+								drug.getMinQuantity(),
+								drug.getCode()));
 		}
 
-		return toInventory;
+		return list;
+	}
+
+	public static List<TODrug> getDrugsToOrder() throws InvalidInputException {
+		UserRole currentUserRole = DMSApplication.getCurrentUserRole();
+
+		if(currentUserRole == null) {
+			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
+		}
+
+		List<Drug> drugs = Drug.getAllDrugs();
+		List<TODrug> list = new ArrayList<TODrug>();
+		for(Drug drug : drugs) {
+			if(drug.isToOrder()) {
+				list.add(new TODrug(drug.getName(),
+									drug.getPrice(),
+									drug.getConcentration(),
+									drug.getUnit(),
+									drug.getInHandQuantity(),
+									drug.getOrderedQuantity(),
+									drug.getMinQuantity(),
+									drug.getCode()));
+			}
+		}
+		return list;
 	}
 
 	public static TOReceipt getCurrentTOReceipt() throws InvalidInputException {
@@ -420,12 +458,15 @@ public class DMSController {
 			throw new InvalidInputException("Aucun utilisateur n'est connecté.");
 		}
 
-		TOReceipt toReceipt = new TOReceipt();
+		TOReceipt toReceipt = new TOReceipt(0);
+		double total = 0;
 		if(currentReceipt != null) {
 			for(Drug drug : currentReceipt.getDrugs()) {
 				toReceipt.addTOScannedItem(drug.getName(), drug.getCode(), drug.getPrice());
+				total += drug.getPrice();
 			}
 		}
+		toReceipt.setTotalPrice(total);
 
 		return toReceipt;
 	}
@@ -449,29 +490,28 @@ public class DMSController {
 			//Close the input stream
 			in.close();
 		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
 			JOptionPane.showMessageDialog(null, e.getMessage(), "File I/O Error", JOptionPane.ERROR_MESSAGE);
 		}
-        
-        // Make a String out of the Arraylist<String>:
-        String printData = "";
-        Iterator<String> it =  listFileContents.iterator();
-        while (it.hasNext()) {
-            printData = printData + it.next();
-            printData = printData + "\r\n";
-        }
 
-        // Feed the data to be printed to the PrinterJob instance:
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new OutputPrinter(printData));
-        boolean doPrint = job.printDialog();
-        if (doPrint) {
-            try {
-                job.print();
-            } catch (PrinterException e) {
-                // Print job did not complete.
-            }
-        }
-		
+		// Make a String out of the Arraylist<String>:
+		String printData = "";
+		Iterator<String> it =  listFileContents.iterator();
+		while (it.hasNext()) {
+			printData = printData + it.next();
+			printData = printData + "\r\n";
+		}
+
+		// Feed the data to be printed to the PrinterJob instance:
+		PrinterJob job = PrinterJob.getPrinterJob();
+		job.setPrintable(new OutputPrinter(printData));
+		boolean doPrint = job.printDialog();
+		if (doPrint) {
+			try {
+				job.print();
+			} catch (PrinterException e) {
+				// Print job did not complete.
+			}
+		}
+
 	}
 }

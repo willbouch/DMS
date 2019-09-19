@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 52 "../../DMS_Persistence.ump"
-// line 123 "../../DMS_Model.ump"
+// line 129 "../../DMS_Model.ump"
 public class Inventory implements Serializable
 {
 
@@ -27,7 +27,7 @@ public class Inventory implements Serializable
 
   public Inventory(char aFirstLetter, DMS aDMS)
   {
-    // line 129 "../../DMS_Model.ump"
+    // line 135 "../../DMS_Model.ump"
     if(aFirstLetter < 'A' || aFirstLetter > 'Z') {
     			throw new RuntimeException("La première lettre de l'inventaire doit être entre A et Z.");			
     		}
@@ -90,9 +90,9 @@ public class Inventory implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Drug addDrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode)
+  public Drug addDrug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode, boolean aToOrder)
   {
-    return new Drug(aName, aPrice, aConcentration, aUnit, aInHandQuantity, aMinQuantity, aCode, this);
+    return new Drug(aName, aPrice, aConcentration, aUnit, aInHandQuantity, aMinQuantity, aCode, aToOrder, this);
   }
 
   public boolean addDrug(Drug aDrug)
@@ -202,7 +202,7 @@ public class Inventory implements Serializable
   		Drug.reinitializeUniqueDrugCode(allDrugs);
   }
 
-  // line 135 "../../DMS_Model.ump"
+  // line 141 "../../DMS_Model.ump"
    public Drug findDrug(String code){
     List<Drug> drugs = this.getDrugs();
 		for(Drug drug : drugs) {

@@ -29,6 +29,7 @@ public class Drug implements Serializable
   private int orderedQuantity;
   private int minQuantity;
   private String code;
+  private boolean toOrder;
 
   //Drug Associations
   private Inventory inventory;
@@ -37,31 +38,31 @@ public class Drug implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode, Inventory aInventory)
+  public Drug(String aName, double aPrice, double aConcentration, String aUnit, int aInHandQuantity, int aMinQuantity, String aCode, boolean aToOrder, Inventory aInventory)
   {
-    // line 85 "../../DMS_Model.ump"
+    // line 86 "../../DMS_Model.ump"
     for(Drug drug : aInventory.getDrugs()) {
     			if(drug.getName().equals(aName) && drug.getConcentration() == aConcentration) {
     				throw new RuntimeException("Le médicament existe déjà.");
     			}
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 93 "../../DMS_Model.ump"
+    // line 94 "../../DMS_Model.ump"
     if(aPrice < 0) {
     			throw new RuntimeException("Le prix ne peut être négatif.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 99 "../../DMS_Model.ump"
+    // line 100 "../../DMS_Model.ump"
     if(aInHandQuantity < 0) {
     			throw new RuntimeException("La quantité en main ne peut être négative.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 111 "../../DMS_Model.ump"
+    // line 112 "../../DMS_Model.ump"
     if(aMinQuantity < 0) {
     			throw new RuntimeException("La quantité minimale ne peut être négative.");
     		}
     // END OF UMPLE BEFORE INJECTION
-    // line 117 "../../DMS_Model.ump"
+    // line 118 "../../DMS_Model.ump"
     if(aConcentration < 0) {
     			throw new RuntimeException("La concentration ne peut être négative.");
     		}
@@ -73,6 +74,7 @@ public class Drug implements Serializable
     inHandQuantity = aInHandQuantity;
     resetOrderedQuantity();
     minQuantity = aMinQuantity;
+    toOrder = aToOrder;
     if (!setCode(aCode))
     {
       throw new RuntimeException("Cannot create due to duplicate code");
@@ -99,7 +101,7 @@ public class Drug implements Serializable
   public boolean setPrice(double aPrice)
   {
     boolean wasSet = false;
-    // line 93 "../../DMS_Model.ump"
+    // line 94 "../../DMS_Model.ump"
     if(aPrice < 0) {
     			throw new RuntimeException("Le prix ne peut être négatif.");
     		}
@@ -112,7 +114,7 @@ public class Drug implements Serializable
   public boolean setConcentration(double aConcentration)
   {
     boolean wasSet = false;
-    // line 117 "../../DMS_Model.ump"
+    // line 118 "../../DMS_Model.ump"
     if(aConcentration < 0) {
     			throw new RuntimeException("La concentration ne peut être négative.");
     		}
@@ -133,7 +135,7 @@ public class Drug implements Serializable
   public boolean setInHandQuantity(int aInHandQuantity)
   {
     boolean wasSet = false;
-    // line 99 "../../DMS_Model.ump"
+    // line 100 "../../DMS_Model.ump"
     if(aInHandQuantity < 0) {
     			throw new RuntimeException("La quantité en main ne peut être négative.");
     		}
@@ -146,7 +148,7 @@ public class Drug implements Serializable
   public boolean setOrderedQuantity(int aOrderedQuantity)
   {
     boolean wasSet = false;
-    // line 105 "../../DMS_Model.ump"
+    // line 106 "../../DMS_Model.ump"
     if(aOrderedQuantity < 0) {
     			throw new RuntimeException("La quantité commandée ne peut être négative.");
     		}
@@ -167,7 +169,7 @@ public class Drug implements Serializable
   public boolean setMinQuantity(int aMinQuantity)
   {
     boolean wasSet = false;
-    // line 111 "../../DMS_Model.ump"
+    // line 112 "../../DMS_Model.ump"
     if(aMinQuantity < 0) {
     			throw new RuntimeException("La quantité minimale ne peut être négative.");
     		}
@@ -190,6 +192,14 @@ public class Drug implements Serializable
       drugsByCode.remove(anOldCode);
     }
     drugsByCode.put(aCode, this);
+    return wasSet;
+  }
+
+  public boolean setToOrder(boolean aToOrder)
+  {
+    boolean wasSet = false;
+    toOrder = aToOrder;
+    wasSet = true;
     return wasSet;
   }
 
@@ -247,6 +257,16 @@ public class Drug implements Serializable
   {
     return getWithCode(aCode) != null;
   }
+
+  public boolean getToOrder()
+  {
+    return toOrder;
+  }
+  /* Code from template attribute_IsBoolean */
+  public boolean isToOrder()
+  {
+    return toOrder;
+  }
   /* Code from template association_GetOne */
   public Inventory getInventory()
   {
@@ -291,6 +311,12 @@ public class Drug implements Serializable
   		}
   }
 
+  // line 124 "../../DMS_Model.ump"
+   public static  List<Drug> getAllDrugs(){
+    List<Drug> list = new ArrayList<Drug>(drugsByCode.values());
+		return list;
+  }
+
 
   public String toString()
   {
@@ -302,7 +328,8 @@ public class Drug implements Serializable
             "inHandQuantity" + ":" + getInHandQuantity()+ "," +
             "orderedQuantity" + ":" + getOrderedQuantity()+ "," +
             "minQuantity" + ":" + getMinQuantity()+ "," +
-            "code" + ":" + getCode()+ "]" + System.getProperties().getProperty("line.separator") +
+            "code" + ":" + getCode()+ "," +
+            "toOrder" + ":" + getToOrder()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "inventory = "+(getInventory()!=null?Integer.toHexString(System.identityHashCode(getInventory())):"null");
   }  
   //------------------------

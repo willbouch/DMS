@@ -3,7 +3,7 @@
 
 package dms.controller;
 
-// line 22 "../../DMS_TObjects.ump"
+// line 19 "../../DMS_TObjects.ump"
 public class TOScannedItem
 {
 

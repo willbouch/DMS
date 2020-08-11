@@ -193,6 +193,7 @@ public class MainScreenController implements Initializable {
 
 		addDrugStage.setOnCloseRequest(e -> {
 			refreshInventoryTable();
+			refreshDrugsToOrderListView();
 		});
 	}
 
@@ -213,6 +214,7 @@ public class MainScreenController implements Initializable {
 
 			deleteStage.setOnCloseRequest(e -> {
 				refreshInventoryTable();
+				refreshDrugsToOrderListView();
 			});
 		}
 	}
@@ -258,6 +260,7 @@ public class MainScreenController implements Initializable {
 
 			manageStage.setOnCloseRequest(e -> {
 				refreshInventoryTable();
+				refreshDrugsToOrderListView();
 			});
 		}
 	}

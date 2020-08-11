@@ -14,4 +14,36 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/dms/view/drugAddingPopup.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/drugAddingPopup.fxml</location>
+		</link>
+		<link>
+			<name>src/dms/view/drugDeletionPopup.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/drugDeletionPopup.fxml</location>
+		</link>
+		<link>
+			<name>src/dms/view/drugInformationPopup.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/drugInformationPopup.fxml</location>
+		</link>
+		<link>
+			<name>src/dms/view/drugManagingPopup.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/drugManagingPopup.fxml</location>
+		</link>
+		<link>
+			<name>src/dms/view/loginScreen.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/loginScreen.fxml</location>
+		</link>
+		<link>
+			<name>src/dms/view/mainScreen.fxml</name>
+			<type>1</type>
+			<location>D:/Duplex/Bureau/mainScreen.fxml</location>
+		</link>
+	</linkedResources>
 </projectDescription>

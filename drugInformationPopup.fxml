@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="249.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="dms.view.DrugInformationPopupController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="153.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="71.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Nom :">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="nameLabel" GridPane.columnIndex="1">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="concentrationLabel" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="priceLabel" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="inHandQuantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="minQuantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="orderedQuantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label text="Concentration :" GridPane.rowIndex="1">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label text="Prix :" GridPane.rowIndex="2">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label text="Quantité en main :" GridPane.rowIndex="3">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label text="Quantité minimale :" GridPane.rowIndex="4">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Label text="Quantité en commande :" GridPane.rowIndex="5">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</GridPane>
